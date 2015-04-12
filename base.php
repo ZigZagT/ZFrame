@@ -10,7 +10,7 @@ if (!defined('_ZDEFINE')) {
 
 set_include_path(get_include_path() . PATH_SEPARATOR . CLASS_DIR);
 spl_autoload_extensions(".class.php");
-spl_autoload_register();
+spl_autoload_register(spl_autoload);
 
 function is_associative_array(array $array) {
     return array_keys($arr) !== range(0, count($arr) - 1);
