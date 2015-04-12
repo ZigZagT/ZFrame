@@ -37,6 +37,8 @@ class MadCourse {
         switch (strtoupper(trim($CollegeID))) {
             case "CUGB":
                 return $this->load_cugb($StudentId, $Password, $Verification);
+            case "SU":
+                return $this->load_su($StudentId);
             default:
                 return FALSE;
         }
@@ -82,7 +84,10 @@ class MadCourse {
         }
         return TRUE;
     }
-
+    
+    private function load_su($StudentId = "") {
+        
+    }
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Utilities">
     private function getHtml($url, $post, $cookie) {
