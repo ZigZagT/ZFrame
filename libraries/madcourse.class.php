@@ -91,7 +91,7 @@ class MadCourse {
         $timeString = '14-15-3';
         $post = "queryStudentId={$StudentId}&queryAcademicYear={$timeString}";
         // $this->setCookies('http://xk.urp.seu.edu.cn/jw_service/service/lookCurriculum.action', 'SU');
-        $data = $this->getHtml("http://xk.urp.seu.edu.cn/jw_service/service/stuCurriculum.action", $post, $_SESSION["remote_cookie"]);
+        $data = $this->getHtml("http://xk.urp.seu.edu.cn/jw_service/service/stuCurriculum.action", $post, "");
         //echo "<pre>=================================\n" . htmlspecialchars($data, ENT_IGNORE) . "</pre>";
         $dom = new simple_html_dom();
         $dom->load($data);
