@@ -33,13 +33,15 @@ class Base {
             curl_setopt_array($ch, $options);
         }
         $result = curl_exec($ch);
+        $error = curl_error($ch);
         curl_close($ch);
 
         //$timecount = microtime(1) - $time1;
         //Log::addRuntimeLog("curl close, time count:{$timecount}");
 
         if ($result === FALSE) {
-            Log::addErrorLog("curl_request failed, \$url is $url");
+            
+            Log::addErrorLog("curl_request failed. {$error}. \$url is $url");
             return FALSE;
         }
         return $result;

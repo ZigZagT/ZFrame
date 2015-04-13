@@ -92,13 +92,13 @@ class MadCourse {
         $post = "queryStudentId={$StudentId}&queryAcademicYear={$timeString}";
         // $this->setCookies('http://xk.urp.seu.edu.cn/jw_service/service/lookCurriculum.action', 'SU');
         $data = $this->getHtml("http://xk.urp.seu.edu.cn/jw_service/service/stuCurriculum.action", $post, "");
-        //echo "<pre>=================================\n" . htmlspecialchars($data, ENT_IGNORE) . "</pre>";
+        // echo "<pre>=================================\n" . htmlspecialchars($data, ENT_IGNORE) . "</pre>";
         $dom = new simple_html_dom();
         $dom->load($data);
+        $morning = TRUE;
+        $afternoon = TRUE;
+        $evening = TRUE;
         foreach ($dom->find('[rowspan]') as $node) {
-            $morning = TRUE;
-            $afternoon = TRUE;
-            $evening = TRUE;
             if ($morning && $node->parent()->first_child()->innertext == "上午") {
                 $morning = FALSE;
                 $children = $node->parent()->children();
@@ -156,11 +156,11 @@ class MadCourse {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Utilities">
     private function getHtml($url, $post, $cookie) {
-        /* echo "<pre>";
-          echo "url: {$url}\n";
-          echo "post: {$post}\n";
-          echo "cookie: {$cookie}\n";
-          echo "</pre>"; */
+        /*echo "<pre>";
+        echo "url: {$url}\n";
+        echo "post: {$post}\n";
+        echo "cookie: {$cookie}\n";
+        echo "</pre>";*/
         $charset = "UTF-8";
         $res = Base::curl_request($url, $post, $cookie, [
                     CURLOPT_HEADER => FALSE,
@@ -176,6 +176,7 @@ class MadCourse {
                             CURLOPT_FOLLOWLOCATION => true,
                             CURLOPT_AUTOREFERER => true,
                             CURLOPT_MAXREDIRS => 5,
+                            CURLOPT_TIMEOUT => 15,
                             CURLOPT_USERAGENT => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"
                 ]);
                 // Log::addRuntimeLog("Final charset is {$charset}.");
