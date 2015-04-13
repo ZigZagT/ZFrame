@@ -78,18 +78,21 @@ class MadCourse {
                 $th = $this->formatHTML($th);
                 $th = str_ireplace('\n┆\n', '-', $th);
                 $content = $this->formatHTML($node[0]->innertext);
-                $content = preg_replace_callback('/<<(.*?)>>;\d*\b/i', function($maches) {return $maches[1];}, $content);
+                $content = preg_replace_callback('/<<(.*?)>>;\d*\b/i', function($maches) {
+                    return $maches[1];
+                }, $content);
                 $this->addLesson(trim($content), trim($th), $week, $no);
             }
         }
         return TRUE;
     }
-    
+
     private function load_su($StudentId = "") {
         $timeString = '14-15-3';
         $post = "queryStudentId={$StudentId}&queryAcademicYear={$timeString}";
         $this->setCookies('http://xk.urp.seu.edu.cn/jw_service/service/lookCurriculum.action', 'SU');
         $data = $this->getHtml("http://xk.urp.seu.edu.cn/jw_service/service/stuCurriculum.action", $post, $_SESSION["remote_cookie"]);
+        //echo "<pre>" . htmlspecialchars($data) . "</pre>";
         $dom = new simple_html_dom();
         $dom->load($data);
         foreach ($dom->find('[rowspan]') as $node) {
@@ -107,6 +110,7 @@ class MadCourse {
                         $content = "{$match[1][$count]}{$match[2][$count]}{$match[3][$count]}\n{$match[4][$count]}\n";
                         $time = "上午";
                         $seq = $count + 1;
+                        $content = $this->formatHTML($content);
                         $this->addLesson(trim($content), trim($time), $week, $seq);
                     }
                 }
@@ -122,11 +126,12 @@ class MadCourse {
                         $content = "{$match[1][$count]}{$match[2][$count]}{$match[3][$count]}\n{$match[4][$count]}\n";
                         $time = "下午";
                         $seq = $count + 3;
-                        $this->addLesson($content, $time, $week, $seq);
+                        $content = $this->formatHTML($content);
+                        $this->addLesson(trim($content), trim($time), $week, $seq);
                     }
                 }
             }
-            if ($morning && $node->parent()->first_child()->innertext == "晚上") {
+            if ($evening && $node->parent()->first_child()->innertext == "晚上") {
                 $children = $node->parent()->children();
                 for ($i = 2; $i < count($children); ++$i) {
                     $content = trim($children[$i]->innertext);
@@ -137,138 +142,122 @@ class MadCourse {
                         $content = "{$match[1][$count]}{$match[2][$count]}{$match[3][$count]}\n{$match[4][$count]}\n";
                         $time = "晚上";
                         $seq = $count + 4;
-                        $this->addLesson($content, $time, $week, $seq);
+                        $content = $this->formatHTML($content);
+                        $this->addLesson(trim($content), trim($time), $week, $seq);
                     }
                 }
             }
         }
-        
-        
-        
-        
-        $match = array();
-        preg_match("/\/manager\/coursearrange\/showTimetable\.do\?id=(\d*)/i", $data, $match);
-        $id = $match[1];
-        $year = 35;
-        $term = 1;
-
-        $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=BASE';
-        $corseurl = sprintf($corseurl, $id, $year, $term);
-        $data = $this->getHtml($corseurl, "", $_SESSION["remote_cookie"]);
-
-        
-        //echo htmlspecialchars($data);
-        for ($week = 1; $week < 8; ++$week) {
-            for ($no = 1; $no < 15; ++$no) {
-                $node = $dom->find("#$week-$no");
-                if ($node == NULL) {
-                    return false;
-                }
-                $th = $node[0]->parent()->find('th')[0]->innertext;
-                $th = $this->formatHTML($th);
-                $th = str_ireplace('\n┆\n', '-', $th);
-                $content = $this->formatHTML($node[0]->innertext);
-                $content = preg_replace_callback('/<<(.*?)>>;\d*\b/i', function($maches) {return $maches[1];}, $content);
-                $this->addLesson(trim($content), trim($th), $week, $no);
-            }
-        }
     }
+
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Utilities">
     private function getHtml($url, $post, $cookie) {
-        $res = Base::curl_request($url, $post, $cookie, [
-                    CURLOPT_HEADER => TRUE,
-                    CURLOPT_FOLLOWLOCATION => true,
-                    CURLOPT_AUTOREFERER => true,
-                    CURLOPT_MAXREDIRS => 5,
-                    CURLOPT_USERAGENT => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"
-        ]);
-        if ($res === FALSE) {
-            return FALSE;
-        }
-        // list($header, $body) = explode("\r\n\r\n", $res);
-        $part = explode("\r\n\r\n", $res);
-        $body = array_pop($part);
-        $header = array_pop($part);
-        $matches = array();
+        /*echo "url: {$url}\n";
+        echo "post: {$post}\n";
+        echo "cookie: {$cookie}\n";*/
         $charset = "UTF-8";
-        if (preg_match_all('/charset=(.*)\b/i', $header, $matches) > 0) {
-            $charset = $matches[1][count($matches[1]) - 1];
+        $res = Base::curl_request($url, $post, $cookie, [
+                    CURLOPT_HEADER => FALSE,
+                    CURLOPT_HEADERFUNCTION => function($ch, $header_line) use($charset) {
+                        //echo "<pre>=================================\n" . htmlspecialchars($header_line, ENT_IGNORE) . "</pre>";
+                        $matches = array();
+                        if (preg_match_all('/charset=(.*)\b/i', $header_line, $matches)) {
+                            $charset = array_pop($matches[1]);
+                        }
+                        return strlen($header_line);
+                    },
+                            CURLOPT_FOLLOWLOCATION => true,
+                            CURLOPT_AUTOREFERER => true,
+                            CURLOPT_MAXREDIRS => 5,
+                            CURLOPT_USERAGENT => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"
+                ]);
+                if ($res === FALSE) {
+                    return FALSE;
+                }
+                $body = trim((iconv($charset, "UTF-8//IGNORE", $res)));
+                //echo "<pre>=================================\n" . htmlspecialchars($body, ENT_IGNORE) . "</pre>";
+                return $body;
+            }
+
+            private function setCookies($url, $CollegeID) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($ch, $header_line) {
+                    $matches = array();
+                    if (preg_match("/set\-cookie:([^\r\n]*)/i", $header, $matches)) {
+                        $_SESSION["remote_cookie"] = $matches[1];
+                    }
+                    return strlen($header_line);
+                });
+                curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+
+                if (curl_exec($ch)) {
+                    return $_SESSION["remote_cookie"];
+                } else {
+                    curl_close($ch);
+                    return FALSE;
+                }
+            }
+
+            /**
+             * Remove elements like &lt;br&gt;, &lt;b&gt;.
+             * 
+             * @param String $rawHtmlText
+             * @return String Formated text
+             */
+            private function formatHTML($rawHtmlText) {
+                $res = preg_replace(['/<br>/', '/<.*>/'], ['\n'], $rawHtmlText);
+                $res = html_entity_decode($res);
+                return $res;
+            }
+
+            private function addLesson($content, $time, $week, $seq) {
+                $this->Lessons[] = new Lesson($content, $time, $week, $seq);
+            }
+
+            public function toXML() {
+                throw new Exception("", -1);
+            }
+
+            public function toJSON() {
+                return json_encode($this);
+            }
+
+            // </editor-fold>
         }
-        $body = trim((iconv($charset, "UTF-8//IGNORE", $body)));
-        return $body;
-    }
 
-    private function setCookies($url, $CollegeID) {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $content = curl_exec($ch);
-        curl_close($ch);
-        list($header, $body) = explode("\r\n\r\n", $content, 2);
-        preg_match("/set\-cookie:([^\r\n]*)/i", $header, $matches);
-        $_SESSION["remote_cookie"] = $matches[1];
-        return $matches[1];
-    }
+        /* class Lesson {
 
-    /**
-     * Remove elements like &lt;br&gt;, &lt;b&gt;.
-     * 
-     * @param String $rawHtmlText
-     * @return String Formated text
-     */
-    private function formatHTML($rawHtmlText) {
-        $res = preg_replace(['/<br>/', '/<.*>/'], ['\n'], $rawHtmlText);
-        $res = html_entity_decode($res);
-        return $res;
-    }
+          function __construct($name, $location, $teacher, $duration, $starttime) {
+          $this->Name = $name;
+          $this->Location = $location;
+          $this->Teacher = $teacher;
+          $this->Duration = $duration;
+          $this->StartTime = $starttime;
+          }
 
-    private function addLesson($content, $time, $week, $seq) {
-        $this->Lessons[] = new Lesson($content, $time, $week, $seq);
-    }
+          public $Name = "";
+          public $Location = "";
+          public $Teacher = "";
+          public $Duration = 0; // in seconds.
+          public $StartTime = 0; // timestamp.
 
-    public function toXML() {
-        throw new Exception("", -1);
-    }
+          } */
 
-    public function toJSON() {
-        return json_encode($this);
-    }
+        class Lesson {
 
-    // </editor-fold>
-}
+            public $Content;
+            public $Time;
+            public $Week;
+            public $Seq;
 
-/* class Lesson {
+            function __construct($content, $time, $week, $seq) {
+                $this->Content = $content;
+                $this->Time = $time;
+                $this->Week = $week;
+                $this->Seq = $seq;
+            }
 
-  function __construct($name, $location, $teacher, $duration, $starttime) {
-  $this->Name = $name;
-  $this->Location = $location;
-  $this->Teacher = $teacher;
-  $this->Duration = $duration;
-  $this->StartTime = $starttime;
-  }
-
-  public $Name = "";
-  public $Location = "";
-  public $Teacher = "";
-  public $Duration = 0; // in seconds.
-  public $StartTime = 0; // timestamp.
-
-  } */
-
-class Lesson {
-
-    public $Content;
-    public $Time;
-    public $Week;
-    public $Seq;
-
-    function __construct($content, $time, $week, $seq) {
-        $this->Content = $content;
-        $this->Time = $time;
-        $this->Week = $week;
-        $this->Seq = $seq;
-    }
-
-}
+        }
+        

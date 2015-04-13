@@ -6,4 +6,5 @@ session_start();
 
 $course = new MadCourse();
 $course->load($_REQUEST['collegeID'], $_REQUEST['username'], $_REQUEST['password'], $_REQUEST['verification']);
+//echo "<pre>" . htmlspecialchars($course->toJSON()) . "</pre>";
 echo $course->toJSON();
