@@ -100,6 +100,7 @@ class MadCourse {
             $afternoon = TRUE;
             $evening = TRUE;
             if ($morning && $node->parent()->first_child()->innertext == "上午") {
+                $morning = FALSE;
                 $children = $node->parent()->children();
                 for ($i = 2; $i < count($children); ++$i) {
                     $content = trim($children[$i]->innertext);
@@ -116,6 +117,7 @@ class MadCourse {
                 }
             }
             if ($afternoon && $node->parent()->first_child()->innertext == "下午") {
+                $afternoon = FALSE;
                 $children = $node->parent()->children();
                 for ($i = 2; $i < count($children); ++$i) {
                     $content = trim($children[$i]->innertext);
@@ -132,6 +134,7 @@ class MadCourse {
                 }
             }
             if ($evening && $node->parent()->first_child()->innertext == "晚上") {
+                $evening = FALSE;
                 $children = $node->parent()->children();
                 for ($i = 2; $i < count($children); ++$i) {
                     $content = trim($children[$i]->innertext);
