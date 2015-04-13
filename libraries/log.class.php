@@ -39,7 +39,7 @@ class Log {
     public static function addErrorLog($message) {
         $currentTime = Log::getCurrentTime();
         ;
-        $logfile = fopen(ZPATH_ERROR_LOG, 'a') or die('add error log, can not open error log file');
+        $logfile = fopen(ZPATH_ERROR_LOG, 'a') or die('Add error log, can not open error log file. Error Msg: ' .  $message);
         $log = $currentTime . $message . PHP_EOL;
         fwrite($logfile, $log);
         fclose($logfile);
@@ -48,7 +48,7 @@ class Log {
     public static function addRuntimeLog($message) {
         $currentTime = Log::getCurrentTime();
         ;
-        $logfile = fopen(ZPATH_RUNTIME_LOG, 'a') or die('add runtime log, can not open runtime log file');
+        $logfile = fopen(ZPATH_RUNTIME_LOG, 'a') or die('Add runtime log, can not open runtime log file. Error Msg: ' .  $message);
         $log = $currentTime . $message . PHP_EOL;
         fwrite($logfile, $log);
         fclose($logfile);
