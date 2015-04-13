@@ -154,18 +154,19 @@ class MadCourse {
     // <editor-fold defaultstate="collapsed" desc="Utilities">
     private function getHtml($url, $post, $cookie) {
         /* echo "<pre>";
-        echo "url: {$url}\n";
-        echo "post: {$post}\n";
-        echo "cookie: {$cookie}\n";
-        echo "</pre>";*/
+          echo "url: {$url}\n";
+          echo "post: {$post}\n";
+          echo "cookie: {$cookie}\n";
+          echo "</pre>"; */
         $charset = "UTF-8";
         $res = Base::curl_request($url, $post, $cookie, [
                     CURLOPT_HEADER => FALSE,
-                    CURLOPT_HEADERFUNCTION => function($ch, $header_line) use($charset) {
+                    CURLOPT_HEADERFUNCTION => function($ch, $header_line) use(&$charset) {
                         // echo "<pre>=================================\n" . htmlspecialchars($header_line, ENT_IGNORE) . "</pre>";
                         $matches = array();
-                        if (preg_match_all('/charset=(.*)\b/i', $header_line, $matches)) {
-                            $charset = array_pop($matches[1]);
+                        if (preg_match_all('/charset=(.*)/i', $header_line, $matches)) {
+                            $charset = trim(array_pop($matches[1]));
+                            Log::addRuntimeLog("Charset {$charset} found.");
                         }
                         return strlen($header_line);
                     },
@@ -174,6 +175,7 @@ class MadCourse {
                             CURLOPT_MAXREDIRS => 5,
                             CURLOPT_USERAGENT => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"
                 ]);
+                Log::addRuntimeLog("Final charset is {$charset}.");
                 if ($res === FALSE) {
                     return FALSE;
                 }
@@ -188,7 +190,7 @@ class MadCourse {
                 curl_setopt($ch, CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($ch, $header_line) {
                     $matches = array();
-                    if (preg_match("/set\-cookie:([^\r\n]*)/i", $header, $matches)) {
+                    if (preg_match("/set\-cookie:([^\r\n]*)/i", $header_line, $matches)) {
                         $_SESSION["remote_cookie"] = $matches[1];
                     }
                     return strlen($header_line);
