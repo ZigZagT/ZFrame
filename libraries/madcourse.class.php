@@ -61,28 +61,32 @@ class MadCourse {
         $year = 35;
         $term = 1;
 
-        // $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=BASE';
-        $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=COMBINE';
+        $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=BASE';
+        // $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=COMBINE';
         $corseurl = sprintf($corseurl, $id, $year, $term);
         $data = $this->getHtml($corseurl, "", $_SESSION["remote_cookie"]);
+        // echo "<pre>=================================\n" . htmlspecialchars($data, ENT_IGNORE) . "</pre>";
 
         $dom = new simple_html_dom();
         $dom->load($data);
         //echo htmlspecialchars($data);
         for ($week = 1; $week < 8; ++$week) {
-            for ($no = 1; $no < 15; ++$no) {
-                $node = $dom->find("#$week-$no");
+            for ($no = 1, $realSeq = 1; $no < 11; $no+=2, ++$realSeq) {
+                $node = $dom->find("#{$week}-{$no}");
                 if ($node == NULL) {
                     return false;
                 }
                 $th = $node[0]->parent()->find('th')[0]->innertext;
                 $th = $this->formatHTML($th);
                 $th = str_ireplace('\n┆\n', '-', $th);
+                $noAdd1 = $no + 1;
+                $noAdd2 = $no + 2;
+                $th = preg_replace(['/08\:50/', '/10\:50/', '/14\:50/', '/16\:50/', '/19\:50/', "/第{$no}节/"], ['09:45', '11:45', '15:45', '17:45', '21:40', $no == 9 ? "第{$no}, {$noAdd1}, {$noAdd2}节" : "第{$no}, {$noAdd1}节"], $th);
                 $content = $this->formatHTML($node[0]->innertext);
-                $content = preg_replace_callback('/<<(.*?)>>;\d*\b/i', function($maches) {
-                    return $maches[1];
+                $content = preg_replace_callback('/<<(.*?)>>;\d*\b/i', function($matches) {
+                    return $matches[1];
                 }, $content);
-                $this->addLesson(trim($content), trim($th), $week, $no);
+                $this->addLesson(trim($content), trim($th), $week, $realSeq);
             }
         }
         return TRUE;

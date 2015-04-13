@@ -8,5 +8,6 @@ $course = new MadCourse();
 $data;
 if (!empty($id)) {
     $data = $course->preload($id);
+    header("Content-Type: image/jpeg");
     echo base64_decode($data);
 }
