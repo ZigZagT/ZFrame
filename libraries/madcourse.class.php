@@ -90,7 +90,7 @@ class MadCourse {
     private function load_su($StudentId = "") {
         $timeString = '14-15-3';
         $post = "queryStudentId={$StudentId}&queryAcademicYear={$timeString}";
-        $this->setCookies('http://xk.urp.seu.edu.cn/jw_service/service/lookCurriculum.action', 'SU');
+        // $this->setCookies('http://xk.urp.seu.edu.cn/jw_service/service/lookCurriculum.action', 'SU');
         $data = $this->getHtml("http://xk.urp.seu.edu.cn/jw_service/service/stuCurriculum.action", $post, $_SESSION["remote_cookie"]);
         //echo "<pre>=================================\n" . htmlspecialchars($data, ENT_IGNORE) . "</pre>";
         $dom = new simple_html_dom();
@@ -166,7 +166,7 @@ class MadCourse {
                         $matches = array();
                         if (preg_match_all('/charset=(.*)/i', $header_line, $matches)) {
                             $charset = trim(array_pop($matches[1]));
-                            Log::addRuntimeLog("Charset {$charset} found.");
+                            // Log::addRuntimeLog("Charset {$charset} found.");
                         }
                         return strlen($header_line);
                     },
@@ -175,7 +175,7 @@ class MadCourse {
                             CURLOPT_MAXREDIRS => 5,
                             CURLOPT_USERAGENT => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"
                 ]);
-                Log::addRuntimeLog("Final charset is {$charset}.");
+                // Log::addRuntimeLog("Final charset is {$charset}.");
                 if ($res === FALSE) {
                     return FALSE;
                 }
