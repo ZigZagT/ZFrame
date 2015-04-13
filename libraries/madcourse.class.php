@@ -48,7 +48,7 @@ class MadCourse {
     // <editor-fold defaultstate="collapsed" desc="Load methods for specified college.">
     private function preload_cugb() {
         $this->setCookies('http://202.204.105.22/academic/j_acegi_security_check', "CUGB");
-        return base64_encode(Base::curl_request("http://202.204.105.22/academic/getCaptcha.do", "", $_SESSION["remote_cookie"]));
+        return base64_encode(Base::curl_request("http://202.204.105.22/academic/getCaptcha.do", "", ""));
     }
 
     private function load_cugb($StudentId = "", $Password = "", $Verification = "") {
