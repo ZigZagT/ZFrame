@@ -61,7 +61,8 @@ class MadCourse {
         $year = 35;
         $term = 1;
 
-        $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=BASE';
+        // $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=BASE';
+        $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=COMBINE';
         $corseurl = sprintf($corseurl, $id, $year, $term);
         $data = $this->getHtml($corseurl, "", $_SESSION["remote_cookie"]);
 
