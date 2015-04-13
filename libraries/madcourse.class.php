@@ -92,7 +92,7 @@ class MadCourse {
         $post = "queryStudentId={$StudentId}&queryAcademicYear={$timeString}";
         $this->setCookies('http://xk.urp.seu.edu.cn/jw_service/service/lookCurriculum.action', 'SU');
         $data = $this->getHtml("http://xk.urp.seu.edu.cn/jw_service/service/stuCurriculum.action", $post, $_SESSION["remote_cookie"]);
-        //echo "<pre>" . htmlspecialchars($data) . "</pre>";
+        //echo "<pre>=================================\n" . htmlspecialchars($data, ENT_IGNORE) . "</pre>";
         $dom = new simple_html_dom();
         $dom->load($data);
         foreach ($dom->find('[rowspan]') as $node) {
@@ -153,14 +153,16 @@ class MadCourse {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Utilities">
     private function getHtml($url, $post, $cookie) {
-        /*echo "url: {$url}\n";
+        /* echo "<pre>";
+        echo "url: {$url}\n";
         echo "post: {$post}\n";
-        echo "cookie: {$cookie}\n";*/
+        echo "cookie: {$cookie}\n";
+        echo "</pre>";*/
         $charset = "UTF-8";
         $res = Base::curl_request($url, $post, $cookie, [
                     CURLOPT_HEADER => FALSE,
                     CURLOPT_HEADERFUNCTION => function($ch, $header_line) use($charset) {
-                        //echo "<pre>=================================\n" . htmlspecialchars($header_line, ENT_IGNORE) . "</pre>";
+                        echo "<pre>=================================\n" . htmlspecialchars($header_line, ENT_IGNORE) . "</pre>";
                         $matches = array();
                         if (preg_match_all('/charset=(.*)\b/i', $header_line, $matches)) {
                             $charset = array_pop($matches[1]);
@@ -175,6 +177,7 @@ class MadCourse {
                 if ($res === FALSE) {
                     return FALSE;
                 }
+                echo "<pre>=================================\n" . htmlspecialchars($res, ENT_IGNORE) . "</pre>";
                 $body = trim((iconv($charset, "UTF-8//IGNORE", $res)));
                 //echo "<pre>=================================\n" . htmlspecialchars($body, ENT_IGNORE) . "</pre>";
                 return $body;
