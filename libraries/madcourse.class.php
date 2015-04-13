@@ -107,7 +107,7 @@ class MadCourse {
                     $content = trim($children[$i]->innertext);
                     $week = $i - 1;
                     $match;
-                    $counter = preg_match_all('/(.*)<br>(.*)(\d+-\d+节)<br>(.*)<br>/i', $content, $match);
+                    $counter = preg_match_all('/(.*?)<br>(.*?)(\d+-\d+节)<br>(.*?)<br>/i', $content, $match);
                     for ($count = 0; $count < $counter; ++$count) {
                         $content = "{$match[1][$count]}{$match[2][$count]}{$match[3][$count]}\n{$match[4][$count]}\n";
                         $time = "上午";
@@ -124,7 +124,7 @@ class MadCourse {
                     $content = trim($children[$i]->innertext);
                     $week = $i - 1;
                     $match;
-                    $counter = preg_match_all('/(.*)<br>(.*)(\d+-\d+节)<br>(.*)<br>/i', $content, $match);
+                    $counter = preg_match_all('/(.*?)<br>(.*?)(\d+-\d+节)<br>(.*?)<br>/i', $content, $match);
                     for ($count = 0; $count < $counter; ++$count) {
                         $content = "{$match[1][$count]}{$match[2][$count]}{$match[3][$count]}\n{$match[4][$count]}\n";
                         $time = "下午";
@@ -141,7 +141,7 @@ class MadCourse {
                     $content = trim($children[$i]->innertext);
                     $week = $i - 1;
                     $match;
-                    $counter = preg_match_all('/(.*)<br>(.*)(\d+-\d+节)<br>(.*)<br>/i', $content, $match);
+                    $counter = preg_match_all('/(.*?)<br>(.*?)(\d+-\d+节)<br>(.*?)<br>/i', $content, $match);
                     for ($count = 0; $count < $counter; ++$count) {
                         $content = "{$match[1][$count]}{$match[2][$count]}{$match[3][$count]}\n{$match[4][$count]}\n";
                         $time = "晚上";
