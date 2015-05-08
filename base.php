@@ -17,6 +17,7 @@ function is_associative_array(array $array) {
 }
 
 class Base {
+
     public static function curl_request($url, $postData, $cookie, array $options = array()) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -40,12 +41,111 @@ class Base {
         //Log::addRuntimeLog("curl close, time count:{$timecount}");
 
         if ($result === FALSE) {
-            
+
             Log::addErrorLog("curl_request failed. {$error}. \$url is $url");
             return FALSE;
         }
         return $result;
     }
+
+    public static function browser_request($url, $get, $post, $options) {
+        $charset = "UTF-8";
+        $useURL = $url;
+        $cookieURL = $url;
+        $accept = "";
+        $matches = array();
+        if (preg_match('/(\S+):\/\/([^\/:]+)(:\d*)?([^# ]*)/', $url, $matches)) {
+            $cookieURL = $matches[2];
+            $accept = $matches[4];
+        } elseif (preg_match('/([^\/:]+)(:\d*)?([^# ]*)/', $url, $matches)) {
+            $cookieURL = $matches[1];
+            $accept = $matches[3];
+        }
+        $proccessHeader = function($ch, $header_line) use(&$charset, &$cookieURL) {
+            $matches = array();
+            if (preg_match_all('/charset=(.*)/i', $header_line, $matches)) {
+                $charset = trim(array_pop($matches[1]));
+            }
+            if (preg_match("/set\-cookie:([^\r\n]*)/i", $header_line, $matches)) {
+                $_SESSION["browser_cookie_{$cookieURL}"] = $matches[1];
+            }
+            return strlen($header_line);
+        };
+        $ch = curl_init();
+        if (isset($get) && !empty($get)) {
+            $useURL .= "?{$get}";
+        }
+        curl_setopt($ch, CURLOPT_URL, $useURL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        if (isset($post) && !empty($post)) {
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        }
+        if (isset($_SESSION["browser_cookie_{$cookieURL}"])) {
+            curl_setopt($ch, CURLOPT_COOKIE, $_SESSION["browser_cookie_{$cookieURL}"]);
+        }
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_HEADERFUNCTION, $proccessHeader);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
+        if (preg_match('/.*\.json$/i', $accept)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json, text/javascript, */* ; q=0.01']);
+        }
+        if (isset($options) && !empty($options)) {
+            curl_setopt_array($ch, $options);
+        }
+        $result = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+        if ($result === FALSE) {
+            return FALSE;
+        }
+        $body = trim((iconv($charset, "UTF-8//IGNORE", $result)));
+        return $body;
+    }
+
+    /**
+     * Receives and excutes the data section in Global Ajax Template. See call.js<br>
+     * If the <i>$data</i> is not specified, this method will get data from <i>php://input</i>, and call this method itself with <i>$data</i> specified.<br>
+     * If the <i>$data</i> is specified, the method will call the function.<br>
+     * If the <i>$data</i> is empty/null/false, simply return FALSE.<br>
+     * @param object/array $data <i>[Optional] Require an OBJECT like {class_flag: 1, class: 'foo',func: 'bar', args: [1, 2]}. See call.js.
+     * @return mixed Returns the return value of the callback. Returns TRUE if there are multiple functions to be called. Returns FALSE on failed.
+     */
+    public static function call($data) {
+        if (isset($data)) {
+            if (!is_object($data)) {                // make sure that $data is object.
+                return FALSE;
+            } elseif (!$data->func) {               // if $data->func is false, means everything goes well an nothing to do.
+                return TRUE;
+            }
+            if ($data->class) {
+                if ($data->class_flag === 1 || strtolower($data->class_flag) === 'session') {      // class_flag === 1, means this class is saved in $_SESSION.
+                    return call_user_func_array(array($_SESSION[$data->class], $data->func), $data->args);
+                } elseif ($data->class_flag === 2 || strtolower($data->class_flag) === 'static') { // class_flag === 2, means the func is an static method.
+                    return call_user_func_array(array($data->class, $data->func), $data->args);
+                }
+            } else {
+                return call_user_func_array($data->func, $data->args);
+            }
+            return FALSE;
+        } else {
+            if ($json = json_decode(file_get_contents('php://input'), true)) {
+                if (is_array($json)) {
+                    foreach ($json as $each) {
+                        Base::call($each);
+                    }
+                    return TRUE;
+                } else {
+                    return Base::call($json);
+                }
+            }
+        }
+    }
+
 }
 
-require_once 'startup.php';
+include_once 'startup.php';
