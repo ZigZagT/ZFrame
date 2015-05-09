@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright 2015 master.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,6 @@ if (version_compare(PHP_VERSION, '5.4.0', '<')) {
 if (!defined('_ZDEFINE')) {
     require_once __DIR__ . '/defines.php';
 }
-
 set_include_path(get_include_path() . PATH_SEPARATOR . CLASS_DIR);
 spl_autoload_extensions(".class.php");
 spl_autoload_register(spl_autoload);
@@ -79,8 +78,11 @@ class Base {
         }
         $proccessHeader = function($ch, $header_line) use(&$charset, &$cookieURL) {
             $matches = array();
-            if (preg_match_all('/charset=(.*)/i', $header_line, $matches)) {
+            if ($charset && preg_match_all('/charset=(.*)/i', $header_line, $matches)) {
                 $charset = trim(array_pop($matches[1]));
+            }
+            if ($charset && preg_match_all('/Content-Type:\s*image[^;]*/i', $header_line, $matches)) {
+                $charset = NULL;
             }
             if (preg_match("/set\-cookie:([^\r\n]*)/i", $header_line, $matches)) {
                 $_SESSION["browser_cookie_{$cookieURL}"] = $matches[1];
@@ -119,8 +121,12 @@ class Base {
         if ($result === FALSE) {
             return FALSE;
         }
-        $body = trim((iconv($charset, "UTF-8//IGNORE", $result)));
-        return $body;
+        if ($charset) {
+            $body = trim((iconv($charset, "UTF-8//IGNORE", $result)));
+            return $body;
+        } else {
+            return $result;
+        }
     }
 
     /**
