@@ -1,5 +1,21 @@
 <?php
 
+/*
+ * Copyright 2015 master.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 defined('_ZEXEC') or die;
 
 /**
@@ -325,7 +341,7 @@ EOSQL;
 EOSQL;
         $q = $this->query(sprintf($sql, $receivedMessage->MsgType));
         while ($row = $q->fetch()) {
-            $keywordMsg = OfficialAPI::receiveMessage($row['keyword_in_xml']);
+            $keywordMsg = WechatAPI::receiveMessage($row['keyword_in_xml']);
             $valid = FALSE;
             switch ($receivedMessage->MsgType) {
                 case 'text':
@@ -350,7 +366,7 @@ EOSQL;
         }
         if (count($matchArray) > 0) {
             //shuffle($matchArray);
-            return OfficialAPI::receiveMessage($matchArray[array_rand($matchArray)]);
+            return WechatAPI::receiveMessage($matchArray[array_rand($matchArray)]);
         } else {
             return FALSE;
         }
@@ -395,8 +411,8 @@ EOSQL;
         while ($row = $query->fetch()) {
             $resultSet[] = array(
                 $row['id'],
-                OfficialAPI::receiveMessage($row['keyword_in_xml']),
-                OfficialAPI::receiveMessage($row['reply_in_xml'])
+                WechatAPI::receiveMessage($row['keyword_in_xml']),
+                WechatAPI::receiveMessage($row['reply_in_xml'])
             );
         }
 

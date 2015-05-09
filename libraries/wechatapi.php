@@ -1,8 +1,24 @@
 <?php
 
+/*
+ * Copyright 2015 master.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 defined('_ZEXEC') or die;
 
-class OfficialAPI {
+class WechatAPI {
 
     /**
      * Establish an http request with curl.
@@ -107,8 +123,7 @@ class OfficialAPI {
     public static function getAccessToken($appid, $appsecret) {
         self::checkPrivilege('1111');
         $url = sprintf(
-                'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s',
-                $appid, $appsecret);
+                'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s', $appid, $appsecret);
         if ($accessToken = self::curl_request($url)) {
             if ($accessToken === false) {
                 throw new OfficialAPIException("get access token failed");
@@ -130,8 +145,7 @@ class OfficialAPI {
 
     public static function getServerIP($accessToken) {
         self::checkPrivilege('1111');
-        $url = sprintf('https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=%s',
-                $accessToken);
+        $url = sprintf('https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=%s', $accessToken);
         if ($ipList = self::curl_request($url)) {
             $j = json_decode($ipList);
             $err = self::IsErrorPackage($j);
@@ -190,8 +204,7 @@ class OfficialAPI {
         }
 
         if (!empty($postStr)) {
-            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement',
-                    LIBXML_NOCDATA);
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             if (!$postObj === FALSE) {
                 return new WechatMessage((array) $postObj);
             } else {
@@ -202,8 +215,7 @@ class OfficialAPI {
 
     public static function createMenu(WechatMenu $menu) {
         self::checkPrivilege('1111');
-        $url = sprintf("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s",
-                ACCESS_TOKEN);
+        $url = sprintf("https://api.weixin.qq.com/cgi-bin/menu/create?access_token=%s", ACCESS_TOKEN);
         //echo $url;
         $j = json_encode($menu);
         $result = self::curl_request($url, $j);
@@ -212,6 +224,99 @@ class OfficialAPI {
         } else {
             return $result;
         }
+    }
+
+}
+
+class OfficialAPIException extends Exception {
+
+    /**
+     * 
+     * @param string $message [Optional]
+     * @param int $code [Optional]
+     * @param $previous [Optional]
+     */
+    function __construct($message, $code, $previous) {
+        parent::__construct('Official API Exception' . $message, $code, $previous);
+    }
+
+}
+
+/**
+ * Description of menu
+ *
+ * @author master
+ */
+class WechatMenu {
+
+    /**
+     *
+     * @var array an array of <b>Menu</b> 
+     */
+    public $button = array();
+
+}
+
+class Menu {
+
+    function __construct($name) {
+        $this->name = $name;
+    }
+
+    public $name;
+    public $sub_button = array();
+
+}
+
+abstract class MenuItem {
+
+    public $type;
+    public $name;
+
+}
+
+/**
+ * @param string $type available type:<br>
+ * click<br>
+ * <i>view [not support]</i><br>
+ * scancode_push<br>
+ * scancode_waitmsg<br>
+ * pic_sysphoto<br>
+ * pic_photo_or_album<br>
+ * pic_weixin<br>
+ * location_select
+ */
+class MenuItem_key extends MenuItem {
+
+    public $key;
+
+    function __construct($type, $name, $key) {
+        $this->type = $type;
+        $this->name = $name;
+        $this->key = $key;
+    }
+
+}
+
+/**
+ * @param string $type available type:<br>
+ * click<br>
+ * <b>view [only support]</b><br>
+ * scancode_push<br>
+ * scancode_waitmsg<br>
+ * pic_sysphoto<br>
+ * pic_photo_or_album<br>
+ * pic_weixin<br>
+ * location_select
+ */
+class MenuItem_url extends MenuItem {
+
+    public $url = 'http://www.sincegrown.com/';
+
+    function __construct($type, $name, $url) {
+        $this->type = $type;
+        $this->name = $name;
+        $this->url = $url;
     }
 
 }

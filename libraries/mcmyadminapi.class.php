@@ -1,11 +1,22 @@
 <?php
 
-defined('_ZEXEC') or die;
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright 2015 master.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+defined('_ZEXEC') or die;
 
 /**
  * McMyAdminAPI
@@ -17,10 +28,11 @@ class McMyAdminAPI {
     private $MCMASESSIONID = "";
     private $url = "";
     private $since = -1;
+
     //public $isLogin = FALSE;
 
     /**
-     * 
+     *
      * @param String $url request url, like http://mc.fuckcugb.com/data.json
      */
     public function __construct($url) {
@@ -29,16 +41,16 @@ class McMyAdminAPI {
 
     /**
      * If the <b>$isLogin</b> is set to <b>TRUE</b>, this method will return immediately.
-     * 
+     *
      * @param String $username
      * @param String $password <i>[Optional]</i>
      * @param String $token <i>[Optional]</i>
      * @return boolean TRUE on success. FALSE on failed.
      */
     public function Login($username, $password = "", $token = "") {
-        /*if ($this->isLogin) {
-            return TRUE;
-        }*/
+        /* if ($this->isLogin) {
+          return TRUE;
+          } */
         $post = 'Username=%s&Password=%s&Token=%s&req=login';
         $url = $this->url;
         $data = sprintf($post, urlencode($username), urlencode($password), urlencode($token));
@@ -70,7 +82,7 @@ class McMyAdminAPI {
     }
 
     /**
-     * 
+     *
      * @param Int $since <i>[Optional]</i> Default is the <i>timestamp</i> variable returned from remote server last time. <i>since</i> variable is initialized with -1, which means request all available chats.
      * @return boolean
      */
@@ -133,7 +145,7 @@ class McMyAdminAPI {
      * <b>Result</b><br>
      * Fails if the arguments are not specified correctly, if the fill region is not rendered, if the block volume of the fill region is greater than 32768, if dataValue or dataTag are invalid for the specified block id, or if no blocks were changed.<br>
      * On success, changes blocks in the fill region to the specified block.<br>
-     * 
+     *
      * @param int $x1 <b>REQUIRED</b>
      * @param int $y1 <b>REQUIRED</b>
      * @param int $z1 <b>REQUIRED</b>
@@ -206,26 +218,26 @@ class McMyAdminAPI {
                 $innerArgs[1] = $innerArgs[4];
                 call_user_func([$this, 'Fill'], $innerArgs);
                 $args[1] >= $args[4] ? ++$args[4] : --$args[4];
-                
+
                 $innerArgs = $args;
                 $innerArgs[4] = $innerArgs[1];
                 call_user_func([$this, 'Fill'], $innerArgs);
                 $args[4] >= $args[1] ? ++$args[1] : --$args[1];
-                
+
                 $innerArgs = $args;
                 $innerArgs[3] = $innerArgs[6];
                 call_user_func([$this, 'Fill'], $innerArgs);
                 $args[3] >= $args[6] ? ++$args[6] : --$args[6];
-                
+
                 $innerArgs = $args;
                 $innerArgs[6] = $innerArgs[3];
                 call_user_func([$this, 'Fill'], $innerArgs);
                 $args[6] >= $args[3] ? ++$args[3] : --$args[3];
-                
+
                 $innerArgs = $args;
                 $innerArgs[2] = $innerArgs[5];
                 call_user_func([$this, 'Fill'], $innerArgs);
-                
+
                 $innerArgs = $args;
                 $innerArgs[5] = $innerArgs[2];
                 call_user_func([$this, 'Fill'], $innerArgs);
