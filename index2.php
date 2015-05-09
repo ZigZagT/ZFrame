@@ -19,21 +19,19 @@
 defined('_ZEXEC') or define("_ZEXEC", 1);
 require_once 'base.php';
 session_start();
-
+$_SERVER['REMOTE_ADDR'] == '127.0.0.1' or die;
 ?>
 
-<img src="http://mad.daftme.com/preload.php?_=<?php echo time();?>&collegeID=CUGB">
 <form action="http://mad.daftme.com/load.php" method="POST">
-    <input type="text" name="verification">
     <input type="hidden" name="collegeID" value="CUGB">
-    <input type="hidden" name="username" value="1004135223">
-    <input type="hidden" name="password" value="101314">
+    <p><label>Username: </label><input type="text" name="username" value=""></p>
+    <p><label>Password: </label><input type="password" name="password" value=""></p>
+    <p><label>Are You Not Robot: </label><input type="text" name="verification">
+        <img src="http://mad.daftme.com/preload.php?_=<?php echo time();?>&collegeID=CUGB"></p>
     <input type="submit" value="submit">
 </form>
 <pre>
     <?php
-    echo $_SESSION["remote_cookie"];
-    echo "\n";
     echo $_SERVER['REMOTE_ADDR']
     ?>
 </pre>
