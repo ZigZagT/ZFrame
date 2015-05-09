@@ -16,11 +16,14 @@
  * limitations under the License.
  */
 
+defined('_ZEXEC') or define("_ZEXEC", 1);
+require_once 'base.php';
 session_start();
-if ($_SERVER['REMOTE_ADDR'] != '219.225.40.233')
-    die;
+
+var_dump(Base::browser_request("http://202.204.105.22/academic/getCaptcha.do"));
 ?>
-<img src="http://mad.daftme.com/preload.php?_=1428910480627&collegeID=CUGB">
+
+<img src="http://mad.daftme.com/preload.php?_=<?php echo time();?>&collegeID=CUGB">
 <form action="http://mad.daftme.com/load.php" method="POST">
     <input type="text" name="verification">
     <input type="hidden" name="collegeID" value="CUGB">

@@ -23,7 +23,7 @@ defined('_ZEXEC') or die;
  *
  * @author master
  */
-class McMyAdminAPI {
+class McMyAdmin {
 
     private $MCMASESSIONID = "";
     private $url = "";

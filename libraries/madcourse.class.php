@@ -58,8 +58,9 @@ class MadCourse {
 
     // <editor-fold defaultstate="collapsed" desc="Load methods for specified college.">
     private function preload_cugb() {
-        $this->setCookies('http://202.204.105.22/academic/j_acegi_security_check', "CUGB");
-        return base64_encode(Base::curl_request("http://202.204.105.22/academic/getCaptcha.do", "", $_SESSION["remote_cookie"]));
+        // $this->setCookies('http://202.204.105.22/academic/j_acegi_security_check', "CUGB");
+        // return base64_encode(Base::curl_request("http://202.204.105.22/academic/getCaptcha.do", "", $_SESSION["remote_cookie"]));
+        return base64_encode(Base::browser_request("http://202.204.105.22/academic/getCaptcha.do"));
     }
 
     private function load_cugb($StudentId = "", $Password = "", $Verification = "") {
@@ -172,117 +173,95 @@ class MadCourse {
     // </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Utilities">
     private function getHtml($url, $post, $cookie) {
-        /*echo "<pre>";
-        echo "url: {$url}\n";
-        echo "post: {$post}\n";
-        echo "cookie: {$cookie}\n";
-        echo "</pre>";*/
+        /* echo "<pre>";
+          echo "url: {$url}\n";
+          echo "post: {$post}\n";
+          echo "cookie: {$cookie}\n";
+          echo "</pre>"; */
         $charset = "UTF-8";
-        $res = Base::curl_request($url, $post, $cookie, [
-                    CURLOPT_HEADER => FALSE,
-                    CURLOPT_HEADERFUNCTION => function($ch, $header_line) use(&$charset) {
-                        // echo "<pre>=================================\n" . htmlspecialchars($header_line, ENT_IGNORE) . "</pre>";
-                        $matches = array();
-                        if (preg_match_all('/charset=(.*)/i', $header_line, $matches)) {
-                            $charset = trim(array_pop($matches[1]));
-                            // Log::addRuntimeLog("Charset {$charset} found.");
-                        }
-                        return strlen($header_line);
-                    },
-                            CURLOPT_FOLLOWLOCATION => true,
-                            CURLOPT_AUTOREFERER => true,
-                            CURLOPT_MAXREDIRS => 5,
-                            CURLOPT_TIMEOUT => 15,
-                            CURLOPT_USERAGENT => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"
-                ]);
-                // Log::addRuntimeLog("Final charset is {$charset}.");
-                if ($res === FALSE) {
-                    return FALSE;
-                }
-                // echo "<pre>=================================\n" . htmlspecialchars($res, ENT_IGNORE) . "</pre>";
-                $body = trim((iconv($charset, "UTF-8//IGNORE", $res)));
-                // echo "<pre>=================================\n" . htmlspecialchars($body, ENT_IGNORE) . "</pre>";
-                return $body;
-            }
-
-            private function setCookies($url, $CollegeID) {
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_HEADERFUNCTION, function($ch, $header_line) {
-                    $matches = array();
-                    if (preg_match("/set\-cookie:([^\r\n]*)/i", $header_line, $matches)) {
-                        $_SESSION["remote_cookie"] = $matches[1];
-                    }
-                    return strlen($header_line);
-                });
-                curl_setopt($ch, CURLOPT_TIMEOUT, 3);
-
-                if (curl_exec($ch)) {
-                    return $_SESSION["remote_cookie"];
-                } else {
-                    curl_close($ch);
-                    return FALSE;
-                }
-            }
-
-            /**
-             * Remove elements like &lt;br&gt;, &lt;b&gt;.
-             * 
-             * @param String $rawHtmlText
-             * @return String Formated text
-             */
-            private function formatHTML($rawHtmlText) {
-                $res = preg_replace(['/<br>/', '/<.*>/'], ['\n'], $rawHtmlText);
-                $res = html_entity_decode($res);
-                return $res;
-            }
-
-            private function addLesson($content, $time, $week, $seq) {
-                $this->Lessons[] = new Lesson($content, $time, $week, $seq);
-            }
-
-            public function toXML() {
-                throw new Exception("", -1);
-            }
-
-            public function toJSON() {
-                return json_encode($this);
-            }
-
-            // </editor-fold>
-        }
-
-        /* class Lesson {
-
-          function __construct($name, $location, $teacher, $duration, $starttime) {
-          $this->Name = $name;
-          $this->Location = $location;
-          $this->Teacher = $teacher;
-          $this->Duration = $duration;
-          $this->StartTime = $starttime;
+        $res = Base::browser_request($url, NULL, $post);
+        /* $res = Base::curl_request($url, $post, $cookie, [
+          CURLOPT_HEADER => FALSE,
+          CURLOPT_HEADERFUNCTION => function($ch, $header_line) use(&$charset) {
+          // echo "<pre>=================================\n" . htmlspecialchars($header_line, ENT_IGNORE) . "</pre>";
+          $matches = array();
+          if (preg_match_all('/charset=(.*)/i', $header_line, $matches)) {
+          $charset = trim(array_pop($matches[1]));
+          // Log::addRuntimeLog("Charset {$charset} found.");
           }
-
-          public $Name = "";
-          public $Location = "";
-          public $Teacher = "";
-          public $Duration = 0; // in seconds.
-          public $StartTime = 0; // timestamp.
-
-          } */
-
-        class Lesson {
-
-            public $Content;
-            public $Time;
-            public $Week;
-            public $Seq;
-
-            function __construct($content, $time, $week, $seq) {
-                $this->Content = $content;
-                $this->Time = $time;
-                $this->Week = $week;
-                $this->Seq = $seq;
-            }
-
+          return strlen($header_line);
+          },
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_AUTOREFERER => true,
+          CURLOPT_MAXREDIRS => 5,
+          CURLOPT_TIMEOUT => 15,
+          CURLOPT_USERAGENT => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36"
+          ]); */
+        // Log::addRuntimeLog("Final charset is {$charset}.");
+        if ($res === FALSE) {
+            return FALSE;
+        } else {
+            return $res;
         }
-        
+    }
+
+    /**
+     * Remove elements like &lt;br&gt;, &lt;b&gt;.
+     * 
+     * @param String $rawHtmlText
+     * @return String Formated text
+     */
+    private function formatHTML($rawHtmlText) {
+        $res = preg_replace(['/<br>/', '/<.*>/'], ['\n'], $rawHtmlText);
+        $res = html_entity_decode($res);
+        return $res;
+    }
+
+    private function addLesson($content, $time, $week, $seq) {
+        $this->Lessons[] = new Lesson($content, $time, $week, $seq);
+    }
+
+    public function toXML() {
+        throw new Exception("", -1);
+    }
+
+    public function toJSON() {
+        return json_encode($this);
+    }
+
+    // </editor-fold>
+}
+
+/* class Lesson {
+
+  function __construct($name, $location, $teacher, $duration, $starttime) {
+  $this->Name = $name;
+  $this->Location = $location;
+  $this->Teacher = $teacher;
+  $this->Duration = $duration;
+  $this->StartTime = $starttime;
+  }
+
+  public $Name = "";
+  public $Location = "";
+  public $Teacher = "";
+  public $Duration = 0; // in seconds.
+  public $StartTime = 0; // timestamp.
+
+  } */
+
+class Lesson {
+
+    public $Content;
+    public $Time;
+    public $Week;
+    public $Seq;
+
+    function __construct($content, $time, $week, $seq) {
+        $this->Content = $content;
+        $this->Time = $time;
+        $this->Week = $week;
+        $this->Seq = $seq;
+    }
+
+}

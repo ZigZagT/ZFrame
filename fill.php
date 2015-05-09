@@ -21,7 +21,7 @@ require_once 'base.php';
 session_start();
 
 if (!isset($_SESSION['MC'])) {
-    $_SESSION['MC'] = new McMyAdminAPI('http://mc.fuckcugb.com/data.json');
+    $_SESSION['MC'] = new McMyAdmin('http://mc.fuckcugb.com/data.json');
 }
 $MC = &$_SESSION['MC'];
 // $MC->isLogin = FALSE;
