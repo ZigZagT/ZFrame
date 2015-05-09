@@ -1,5 +1,5 @@
 # TFrame
-<h1>Basic PHP Framework</h1>
+<h2>Basic PHP Framework</h2>
 <h6>Licensed under the Apache License, Version 2.0 (the "License")<h6>
 
 <p>You should add following code at the beginning of every entry file:</p>
