@@ -17,7 +17,7 @@ class McMyAdminAPI {
     private $MCMASESSIONID = "";
     private $url = "";
     private $since = -1;
-    public $isLogin = FALSE;
+    //public $isLogin = FALSE;
 
     /**
      * 
@@ -36,9 +36,9 @@ class McMyAdminAPI {
      * @return boolean TRUE on success. FALSE on failed.
      */
     public function Login($username, $password = "", $token = "") {
-        if ($this->isLogin) {
+        /*if ($this->isLogin) {
             return TRUE;
-        }
+        }*/
         $post = 'Username=%s&Password=%s&Token=%s&req=login';
         $url = $this->url;
         $data = sprintf($post, urlencode($username), urlencode($password), urlencode($token));
@@ -48,7 +48,8 @@ class McMyAdminAPI {
             $json = json_decode($rel);
             if ($json->success && isset($json->MCMASESSIONID)) {
                 $this->MCMASESSIONID = $json->MCMASESSIONID;
-                $this->isLogin = TRUE;
+                //$this->isLogin = TRUE;
+                $this->since = -1;
                 return TRUE;
             }
         }
@@ -89,8 +90,7 @@ class McMyAdminAPI {
             $json = json_decode($rel);
             if ($json->status == 200) {
                 $this->since = $json->timestamp;
-                // var_dump($json);
-                return json_encode($json->chatdata);
+                return $json->chatdata;
             } else {
                 return FALSE;
             }
@@ -102,7 +102,7 @@ class McMyAdminAPI {
     /**
      * /Fill blocks in the game.<br>
      * Arguments will be passed to the game whitout syntax check by calling the <i>SendChat</i> method directly.<br>
-     * If the func_num_args() is no more than 6, and the first argument is an array, this array will be treat as filled with required arguments and will passed to the game separately, and other arguments will be ignored.<br>
+     * If the first argument is an array, this array will be treat as filled with required arguments and will passed to the game separately, and other arguments will be ignored.<br>
      * ===========================================<br>
      * <i>instruction from:http://minecraft.gamepedia.com/Commands</i><br>
      * <b>Syntax:</b><br>
@@ -134,23 +134,130 @@ class McMyAdminAPI {
      * Fails if the arguments are not specified correctly, if the fill region is not rendered, if the block volume of the fill region is greater than 32768, if dataValue or dataTag are invalid for the specified block id, or if no blocks were changed.<br>
      * On success, changes blocks in the fill region to the specified block.<br>
      * 
-     * @param type $x1
-     * @param type $y1
-     * @param type $z1
-     * @param type $x2
-     * @param type $y2
-     * @param type $z2
-     * @param type $TileName
-     * @param type $dataValue
-     * @param type $oldBlockHandling
-     * @param type $others
+     * @param int $x1 <b>REQUIRED</b>
+     * @param int $y1 <b>REQUIRED</b>
+     * @param int $z1 <b>REQUIRED</b>
+     * @param int $x2 <b>REQUIRED</b>
+     * @param int $y2 <b>REQUIRED</b>
+     * @param int $z2 <b>REQUIRED</b>
+     * @param string $TileName <b>REQUIRED</b>
+     * @param int $dataValue Recommended.
+     * @param string $oldBlockHandling Require above arguments NOT empty.
+     * @param mixed $others Can be multiple values.
+     * @param bool $positive If true, and and y value is bigger than 256, the method will treat the y value as 256, instead of doing nothing but return false. <br><b>NOTE: </b>If you use more than one value for $others, the default value of $positive will be overwritten and you should specify the value of $positive explicitly.
      */
-    public function Fill($x1, $y1, $z1, $x2, $y2, $z2, $TileName, $dataValue, $oldBlockHandling = '', $others = null) {
-        $args;
-        if (func_num_args() <= 6 && is_array($x1)) {
-            $args = &$x1;
-        } else {
-            $args = func_get_args();
+    public function Fill($x1, $y1, $z1, $x2, $y2, $z2, $TileName, $dataValue, $oldBlockHandling = '', $others = null, $positive = true) {
+        if (is_array($x1)) {
+            return call_user_func([$this, 'Fill'], $x1);
+        }
+        $args = func_get_args();
+        $pos = func_get_arg(func_num_args() - 1);
+        if ($y1 > 256) {
+            if ($pos) {
+                $args[1] = 256;
+                return call_user_func([$this, 'Fill'], $args);
+            } else {
+                return FALSE;
+            }
+        }
+        if ($y2 > 256) {
+            if ($pos) {
+                $args[4] = 256;
+                return call_user_func([$this, 'Fill'], $args);
+            } else {
+                return FALSE;
+            }
+        }
+        array_pop($args);
+        if ((abs($x1 - $x2) + 1) * (abs($y1 - $y2) + 1) * (abs($z1 - $z2) + 1) >= 32768) {
+            if (strtolower($oldBlockHandling) == 'hollow' || strtolower($oldBlockHandling) == 'outline') {
+                $innerArgs = $args;
+                if ($innerArgs[0] >= $innerArgs[3]) {
+                    --$innerArgs[0];
+                    ++$innerArgs[3];
+                } else {
+                    ++$innerArgs[0];
+                    --$innerArgs[3];
+                }
+                if ($innerArgs[1] >= $innerArgs[4]) {
+                    --$innerArgs[1];
+                    ++$innerArgs[4];
+                } else {
+                    ++$innerArgs[1];
+                    --$innerArgs[4];
+                }
+                if ($innerArgs[2] >= $innerArgs[5]) {
+                    --$innerArgs[2];
+                    ++$innerArgs[5];
+                } else {
+                    ++$innerArgs[2];
+                    --$innerArgs[5];
+                }
+                $innerArgs[6] = 'air';
+                $innerArgs[7] = 0;
+                if (strtolower($oldBlockHandling) == 'hollow') {
+                    $innerArgs[8] = 'destroy';
+                } else {
+                    $innerArgs[8] = 'replace';
+                }
+                call_user_func([$this, 'Fill'], $innerArgs);
+                $args[8] = 'replace';
+                $innerArgs = $args;
+                $innerArgs[1] = $innerArgs[4];
+                call_user_func([$this, 'Fill'], $innerArgs);
+                $args[1] >= $args[4] ? ++$args[4] : --$args[4];
+                
+                $innerArgs = $args;
+                $innerArgs[4] = $innerArgs[1];
+                call_user_func([$this, 'Fill'], $innerArgs);
+                $args[4] >= $args[1] ? ++$args[1] : --$args[1];
+                
+                $innerArgs = $args;
+                $innerArgs[3] = $innerArgs[6];
+                call_user_func([$this, 'Fill'], $innerArgs);
+                $args[3] >= $args[6] ? ++$args[6] : --$args[6];
+                
+                $innerArgs = $args;
+                $innerArgs[6] = $innerArgs[3];
+                call_user_func([$this, 'Fill'], $innerArgs);
+                $args[6] >= $args[3] ? ++$args[3] : --$args[3];
+                
+                $innerArgs = $args;
+                $innerArgs[2] = $innerArgs[5];
+                call_user_func([$this, 'Fill'], $innerArgs);
+                
+                $innerArgs = $args;
+                $innerArgs[5] = $innerArgs[2];
+                call_user_func([$this, 'Fill'], $innerArgs);
+                return TRUE;
+            } else {
+                if (abs($x1 - $x2) > 0) {
+                    $half = (int) (($x1 + $x2) / 2);
+                    $fuck = $x2;
+                    $args[3] = $half;
+                    call_user_func([$this, 'Fill'], $args);
+                    $args[3] = $fuck;
+                    $args[0] = $half + 1;
+                    call_user_func([$this, 'Fill'], $args);
+                } elseif (abs($y1 - $y2) > 0) {
+                    $half = (int) (($y1 + $y2) / 2);
+                    $fuck = $y2;
+                    $args[4] = $half;
+                    call_user_func([$this, 'Fill'], $args);
+                    $args[4] = $fuck;
+                    $args[1] = $half + 1;
+                    call_user_func([$this, 'Fill'], $args);
+                } elseif (abs($z1 - $z2) > 0) {
+                    $half = (int) (($z1 + $z2) / 2);
+                    $fuck = $z2;
+                    $args[5] = $half;
+                    call_user_func([$this, 'Fill'], $args);
+                    $args[5] = $fuck;
+                    $args[2] = $half + 1;
+                    call_user_func([$this, 'Fill'], $args);
+                }
+                return TRUE;
+            }
         }
         $data = '/fill ';
         $data .= join(' ', $args);
@@ -158,9 +265,9 @@ class McMyAdminAPI {
     }
 
     public function Diagnose() {
-        $data = ['url' => $this->url, 'MCMASESSIONID' => $this->MCMASESSIONID, 'since' => $this->since, 'isLogin' => $this->isLogin];
-        var_dump($data);
-        return $data;
+        //$data = ['url' => $this->url, 'MCMASESSIONID' => $this->MCMASESSIONID, 'since' => $this->since, 'isLogin' => $this->isLogin];
+        //var_dump($data);
+        //return $data;
     }
 
 }

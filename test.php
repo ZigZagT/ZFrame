@@ -7,7 +7,7 @@ if (!isset($_SESSION['MC'])) {
     $_SESSION['MC'] = new McMyAdminAPI('http://mc.fuckcugb.com/data.json');
 }
 $MC = &$_SESSION['MC'];
-$MC->isLogin = FALSE;
+//$MC->isLogin = FALSE;
 $MC->Login('admin', 'LiuZehui1995');
 
 if (!isset($_REQUEST['ajax'])) {

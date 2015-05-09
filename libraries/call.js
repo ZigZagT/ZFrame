@@ -2,7 +2,7 @@
 var _ajax_object_template = {
     // '/call.php?&ajax=1' is recommended.
     url: '/call.php',
-    // data can also be an array(NOT OBJECT) contains multiple function call.
+    // data can also be an indexed array(NOT OBJECT) contains multiple function call.
     data: {
         // Variable name of an instance of class saved in session => 1 or 'session', class name with static method => 2 or 'static'.
         // REQUIRED when class name is specified.
@@ -18,6 +18,7 @@ var _ajax_object_template = {
 
 // Global Ajax Request Porccessor. Use this function for Ajax communication.
 function con(ajax_object, success_callback, error_callback) {
+    // console.log('connect start');
     $.ajax({
         type: 'POST',
         dataType: "json",
@@ -27,18 +28,21 @@ function con(ajax_object, success_callback, error_callback) {
         success: success_callback,
         error: error_callback
     });
-    console.log('Ajas Request: ' + ajax_object);
+    // console.log('Ajas Request: ' + ajax_object);
 }
 
 // Jast for quickly use. Call Server Function. The first three arguments are required.
 function exec(func_name, args, success_callback, class_name, class_flag, error_callback) {
+    // console.log('exec start');
+    // console.log(arguments);
     var ajax_obj;
-    if (func_name == undefined && args == undefined && success_callback == undefined) {
+    if (func_name !== undefined && args !== undefined && success_callback !== undefined) {
+        // console.log('construct ajax_obj');
         ajax_obj = {
             url: _ajax_object_template.url,
             data: {
                 func: func_name,
-                args: args,
+                args: args
             }
         }
     } else {
@@ -52,5 +56,6 @@ function exec(func_name, args, success_callback, class_name, class_flag, error_c
             return false;
         }
     }
+    // console.log('exec near end');
     con(ajax_obj, success_callback, error_callback);
 }

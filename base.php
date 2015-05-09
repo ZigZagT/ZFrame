@@ -12,7 +12,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . CLASS_DIR);
 spl_autoload_extensions(".class.php");
 spl_autoload_register(spl_autoload);
 
-function is_associative_array(array $array) {
+function is_associative_array(array $arr) {
     return array_keys($arr) !== range(0, count($arr) - 1);
 }
 
@@ -117,24 +117,24 @@ class Base {
      */
     public static function call($data) {
         if (isset($data)) {
-            if (!is_object($data)) {                // make sure that $data is object.
+            if (!is_associative_array($data)) {         // make sure that $data is associative array.
                 return FALSE;
-            } elseif (!$data->func) {               // if $data->func is false, means everything goes well an nothing to do.
+            } elseif (!$data['func']) {                   // if $data['func'] is false, means everything goes well an nothing to do.
                 return TRUE;
             }
-            if ($data->class) {
-                if ($data->class_flag === 1 || strtolower($data->class_flag) === 'session') {      // class_flag === 1, means this class is saved in $_SESSION.
-                    return call_user_func_array(array($_SESSION[$data->class], $data->func), $data->args);
-                } elseif ($data->class_flag === 2 || strtolower($data->class_flag) === 'static') { // class_flag === 2, means the func is an static method.
-                    return call_user_func_array(array($data->class, $data->func), $data->args);
+            if ($data['class']) {
+                if ($data['class_flag'] === 1 || strtolower($data['class_flag']) === 'session') {      // class_flag === 1, means this class is saved in $_SESSION.
+                    return call_user_func_array(array($_SESSION[$data['class']], $data['func']), $data['args']);
+                } elseif ($data['class_flag'] === 2 || strtolower($data['class_flag']) === 'static') { // class_flag === 2, means the func is an static method.
+                    return call_user_func_array(array($data['class'], $data['func']), $data['args']);
                 }
             } else {
-                return call_user_func_array($data->func, $data->args);
+                return call_user_func_array($data['func'], $data['args']);
             }
             return FALSE;
         } else {
             if ($json = json_decode(file_get_contents('php://input'), true)) {
-                if (is_array($json)) {
+                if (!is_associative_array($json)) {
                     foreach ($json as $each) {
                         Base::call($each);
                     }
