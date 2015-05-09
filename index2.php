@@ -20,7 +20,6 @@ defined('_ZEXEC') or define("_ZEXEC", 1);
 require_once 'base.php';
 session_start();
 
-var_dump(Base::browser_request("http://202.204.105.22/academic/getCaptcha.do"));
 ?>
 
 <img src="http://mad.daftme.com/preload.php?_=<?php echo time();?>&collegeID=CUGB">
