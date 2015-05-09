@@ -23,7 +23,7 @@ $return = Base::call();
 if (is_array($return) || is_object($return)) {
     echo json_encode($return);
 } elseif (is_bool($return)) {
-    echo json_encode(['status' => $return]);
+    echo json_encode(['success' => $return]);
 } else {
-    echo '{}';
+    echo json_encode(['data' => $return]);
 }

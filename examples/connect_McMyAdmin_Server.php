@@ -49,7 +49,7 @@ if (!isset($_SESSION['MC'])) {
             }
             function login() {
                 exec('Login', [$('#login input[name=username]').val(), $('#login input[name=password]').val()], function (data) {
-                    if (data.status == true) {
+                    if (data.success == true) {
                         addMsg('Login success.');
                         getMsg();
                     }
