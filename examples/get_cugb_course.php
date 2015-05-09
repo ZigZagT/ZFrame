@@ -17,7 +17,7 @@
  */
 
 defined('_ZEXEC') or define("_ZEXEC", 1);
-require_once 'base.php';
+require_once '../base.php';
 session_start();
 $_SERVER['REMOTE_ADDR'] == '127.0.0.1' or die;
 ?>

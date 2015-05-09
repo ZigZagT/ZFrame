@@ -277,9 +277,8 @@ class McMyAdmin {
     }
 
     public function Diagnose() {
-        //$data = ['url' => $this->url, 'MCMASESSIONID' => $this->MCMASESSIONID, 'since' => $this->since, 'isLogin' => $this->isLogin];
-        //var_dump($data);
-        //return $data;
+        var_dump($this);
+        return json_encode($this);
     }
 
 }

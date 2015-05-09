@@ -17,23 +17,20 @@
  */
 
 defined('_ZEXEC') or define("_ZEXEC", 1);
-require_once 'base.php';
+require_once '../base.php';
 session_start();
 
 if (!isset($_SESSION['MC'])) {
     $_SESSION['MC'] = new McMyAdmin('http://mc.fuckcugb.com/data.json');
 }
-$MC = &$_SESSION['MC'];
-// $MC->isLogin = FALSE;
-$MC->Login('admin', 'LiuZehui1995');
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>FILL</title>
-        <script src="libraries/jquery.js"></script>
-        <script src="libraries/call.js"></script>
+        <title>Connect McMyAdmin</title>
+        <script src="../libraries/jquery.js"></script>
+        <script src="../libraries/call.js"></script>
         <script>
             // Global Log Container.
             var log = $('#log');
