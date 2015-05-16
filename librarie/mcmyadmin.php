@@ -36,7 +36,9 @@ class McMyAdmin {
      * @param String $url request url, like http://mc.fuckcugb.com/data.json
      */
     public function __construct($url) {
-        $this->url = $url;
+        if (isset($url) && !empty($url)) {
+            $this->url = $url;
+        }
     }
 
     /**
