@@ -23,7 +23,7 @@ define('ZPATH_LOG', ZPATH_ROOT . '/logs');
 define('ZPATH_ACCESS_LOG', ZPATH_ROOT . '/logs/access.log');
 define('ZPATH_ERROR_LOG', ZPATH_ROOT . '/logs/error.log');
 define('ZPATH_RUNTIME_LOG', ZPATH_ROOT . '/logs/runtime.log');
-define('CLASS_DIR', ZPATH_ROOT . '/libraries/');
+define('ZPATH_CLASS_DIR', ZPATH_ROOT . '/libraries/');
 
 
 define('ZPATH_IMAGE_FOLDER', ZPATH_ROOT . '/image');
