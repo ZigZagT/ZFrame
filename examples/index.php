@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 defined('_ZEXEC') or define("_ZEXEC", 1);
-require_once 'base.php';
+require_once '../base.php';
 ?>
 
 <!DOCTYPE html>
