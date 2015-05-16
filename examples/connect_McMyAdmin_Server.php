@@ -29,8 +29,8 @@ if (!isset($_SESSION['MC'])) {
     <head>
         <meta charset="UTF-8">
         <title>Connect McMyAdmin</title>
-        <script src="<?php echo ZPATH_CLASS_DIR; ?>jquery.js"></script>
-        <script src="<?php echo ZPATH_CLASS_DIR; ?>call.js"></script>
+        <script src="<?php echo ZPATH_CLASS_DIR; ?>/jquery.js"></script>
+        <script src="<?php echo ZPATH_CLASS_DIR; ?>/call.js"></script>
         <script>
             // Global Log Container.
             var log = $('#log');
