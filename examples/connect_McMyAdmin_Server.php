@@ -33,6 +33,7 @@ if (!isset($_SESSION['MC']) || isset($_REQUEST['reset'])) {
         <script>
             // Global Log Container.
             var log = $('#log');
+            var interval;
             function fill() {
                 var argsT = $('#fill input]').val().split(" ");
                 if (argsT.length > 11) {
@@ -61,6 +62,10 @@ if (!isset($_SESSION['MC']) || isset($_REQUEST['reset'])) {
                     }
                     console.log('Login: ');
                     console.log(data);
+                    if (interval) {
+                        window.clearInterval(interval);
+                    }
+                    window.setInterval(getMsg, 3000);
                 }, 'MC', 'session', function (xhr, str) {
                     console.log('Login Ajax Error:' + str);
                 });
@@ -121,7 +126,6 @@ if (!isset($_SESSION['MC']) || isset($_REQUEST['reset'])) {
     </body>
     <script>
         $(document).ready(function () {
-            setInterval(getMsg, 3000);
             log = $('#log')
         });
     </script>
