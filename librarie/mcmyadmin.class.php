@@ -42,19 +42,38 @@ class McMyAdmin {
     }
 
     /**
+     * Initialize global McMyAdmin object in $_SESSION['MC']
+     * @param String $url <i>[Optional]</i>
+     */
+    public static function init($url) {
+        if (session_status() != PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        if (!isset($url) || empty($url)) {
+            $url = "";
+        }
+        $_SESSION['MC'] = new McMyAdmin($url);
+    }
+
+    /**
      * If the <b>$isLogin</b> is set to <b>TRUE</b>, this method will return immediately.
      *
      * @param String $username
      * @param String $password <i>[Optional]</i>
      * @param String $token <i>[Optional]</i>
+     * @param String $url <i>[Optional]</i>
      * @return boolean TRUE on success. FALSE on failed.
      */
-    public function Login($username, $password = "", $token = "") {
+    public function Login($username, $password = "", $token = "", $url) {
         /* if ($this->isLogin) {
           return TRUE;
           } */
         $post = 'Username=%s&Password=%s&Token=%s&req=login';
-        $url = $this->url;
+        if (!isset($url) || empty($url)) {
+            $url = $this->url;
+        } else {
+            $this->url = $url;
+        }
         $data = sprintf($post, urlencode($username), urlencode($password), urlencode($token));
         $rel = Base::browser_request($url, $data);
         //var_dump($rel);

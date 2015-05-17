@@ -1,6 +1,5 @@
 <?php
-
-/* 
+/*
  * Copyright 2015 master.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,6 +46,13 @@ if (!isset($_SESSION['MC'])) {
                     console.log('Fill Ajax Error:' + str);
                 });
             }
+            function action() {
+                exec('init', [$('#action input[name=url]').val()], function () {
+                    addMsg('Set URL successful.');
+                }, 'McMyAdmin', 'static', function (xhr, str) {
+                    console.log('Login Ajax Error:' + str);
+                });
+            }
             function login() {
                 exec('Login', [$('#login input[name=username]').val(), $('#login input[name=password]').val()], function (data) {
                     if (data.success == true) {
@@ -84,19 +90,15 @@ if (!isset($_SESSION['MC'])) {
                 node.html(str);
                 log.append((node));
             }
-            function test() {
-                // console.log('test start.');
-                exec('hello', ['EXEC'], function (data) {
-                    console.log('hello success.');
-                    console.log(data);
-                }, null, null, function (xhr, str) {
-                    console.log('error: ' + str);
-                });
-                // console.log('test end.');
-            }
         </script>
     </head>
     <body>
+        <div id="action">
+            <h2>Set Server Address:</h2>
+            <label>Url:</label>
+            <input type="text" name="url">
+            <button onclick="action()">Set URL</button>
+        </div>
         <div id="login">
             <h2>Login:</h2>
             <label>Username:</label>
@@ -114,9 +116,6 @@ if (!isset($_SESSION['MC'])) {
             <h2>Fill:</h2>
             <span>/fill &nbsp;<input type="text"></span>
             <button onclick="fill()">Fill</button>
-        </div>
-        <div id="test" style="disply:none;">
-            <button onclick="test()">TEST</button>
         </div>
         <div id="log"></div>
     </body>
