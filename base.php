@@ -23,7 +23,7 @@ if (version_compare(PHP_VERSION, '5.4.0', '<')) {
 if (!defined('_ZDEFINE')) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'defines.php';
 }
-set_include_path(get_include_path() . PATH_SEPARATOR . ZPATH_CLASS_DIR);
+set_include_path(ZPATH_CLASS_DIR . PATH_SEPARATOR . get_include_path());
 spl_autoload_extensions(".class.php");
 spl_autoload_register(spl_autoload);
 
