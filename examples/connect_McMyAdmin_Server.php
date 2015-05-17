@@ -94,8 +94,16 @@ if (!isset($_SESSION['MC']) || isset($_REQUEST['reset'])) {
                 var node = $('<p></p>');
                 node.html(str);
                 log.append((node));
+                log[0].scrollTop = log[0].scrollHeight;
             }
         </script>
+        <style>
+            #log {
+                background: #f3f3f3;
+                height: 30em;
+                overflow: scroll;
+            }
+        </style>
     </head>
     <body>
         <div id="action">
