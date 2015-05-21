@@ -18,6 +18,7 @@
 
 defined('_ZEXEC') or die;
 define('_ZDEFINE', 1);
+define('_ZPHP_VERSION', 'Your host needs to use PHP 5.4.41+ for PHP 5.4, PHP 5.5.25+ fo PHP 5.5.');
 define('ZPATH_ROOT', __DIR__);
 define('ZPATH_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs');
 define('ZPATH_ACCESS_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'access.log');

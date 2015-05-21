@@ -17,11 +17,14 @@
  */
 
 defined('_ZEXEC') or die;
-if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-    die('Your host needs to use PHP 5.4 or higher!');
-}
 if (!defined('_ZDEFINE')) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'defines.php';
+}
+if (version_compare(PHP_VERSION, '5.4.41', '<')) {
+    die(_ZPHP_VERSION);
+}
+if (version_compare(PHP_VERSION, '5.5.0', '>') && version_compare(PHP_VERSION, '5.5.25', '<')) {
+    die(_ZPHP_VERSION);
 }
 set_include_path(ZPATH_CLASS_DIR . PATH_SEPARATOR . get_include_path());
 spl_autoload_extensions(".class.php");
