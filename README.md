@@ -1,22 +1,26 @@
 # ZFrame
 ## Basic PHP Framework
-###### Licensed under the Apache License, Version 2.0<h6>
 
-#### You should add following lines at the beginning of every entry file:
 
-**Note:** You should modify the path of <i>base.php</i> to make sure it included.
-```php
-<?php
-defined('_ZEXEC') or define("_ZEXEC", 1);
-require_once 'base.php';
-session_start();
-```
-
-#### And use this as the beginning of other files:
+#### Quick Start:
+* Add following lines to the beginning of each *entry* file:  
+  **Note:** Change the path of `base.php` to make sure it included.  
+  ```php
+  <?php
+  defined('_ZEXEC') or define("_ZEXEC", 1);
+  require_once 'base.php';
+  session_start();
+  ```
+  
+* And for other files, use:
 ```php
 <?php
 defined('_ZEXEC') or die;
 ```
+
+=======
+#### Easy Extend:
+Write your own startup code in `startup.php`. This file would be included at the end of `base.php`.
+
 ======
-Write your own startup code in startup.php, and this will be included in the end of base.php.
-Modify `defines.php` for PATH variable and Database connection.
+Database information is saved in `defines.php`. Change these lines for your own use.
