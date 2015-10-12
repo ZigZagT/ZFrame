@@ -1,6 +1,4 @@
-# ZFrame
-## Basic PHP Framework
-
+# ZFrame -- *Basic PHP Framework*
 
 #### Quick Start:
 * Add following lines to the beginning of each *entry* file:  
