@@ -68,7 +68,7 @@ class Base {
      * @param String $url Request URL in curl.
      * @param String $get <i>[Optional]</i> <b>Urlencoded</b> get string, will be appended with an prefix "?" after $url.
      * @param String $post <i>[Optional]</i> <b>Urlencoded</b> post string, or be an array ["assoc" => array(), "files" => <i>&lt;file info&gt;</i>]<br>
-     * <i>&lt;file info&gt;</i> is also an associate array as <br> "name" => "path" <br> or <br> "name" => ["filename" => "random filename"<i>(default)</i>, "type" => "application/octet-stream"<i>(default)</i>, "data" => <i>&lt;Binary Data&gt;</i>]". <br>
+     * <i>&lt;file info&gt;</i> is also an associate array as <br> "&lt;name&gt;" => "&lt;path&gt;" <br> or <br> "&lt;name&gt;" => ["filename" => "&lt;random filename<i>(default)</i>&gt;", "type" => "&lt;application/octet-stream<i>(default)</i>&gt;", "data" => <i>&lt;Binary Data&gt;</i>]. <br>
      * Both sub array in this field are optional. Invalid input will be ignored without any promot. 
      * @param Array $options <i>[Optional]</i> Custom curl options <b>ARRAY</b>.
      * @param Bool $resetCookie <i>[Optional]</i> This will <b>only<b> clear cookies for the request $url.
@@ -107,10 +107,10 @@ class Base {
          * 
          * @param resource $ch cURL resource
          * @param array $assoc "name" => "value"
-         * @param array $files "name" => "path" or "name" => ["filename" => "random filename"<i>(default)</i>, "type" => "application/octet-stream"<i>(default)</i>, "data" => <i>&lt;Binary Data&gt;</i>]"
+         * @param array $files see above for more detail
          * @return bool
          */
-        $postfields = function(&$ch, array $assoc = array(), array $files = array()) use(&$header) {
+        $setPostFields = function(&$ch, array $assoc = array(), array $files = array()) use(&$header) {
             // invalid characters for "name" and "filename"
             static $disallow = array("\0", "\"", "\r", "\n");
 
@@ -126,24 +126,28 @@ class Base {
 
             // build file parameters
             foreach ($files as $k => $v) {
-                if (!is_array($v)) {
+                // if (!is_array($v)) {
+                if (is_string($v)) {
+                    $v = realpath(filter_var($v));
+                    // Make sure the given path is valid.
                     switch (true) {
-                        case false === $v = realpath(filter_var($v)):
-                        case!is_file($v):
-                        case!is_readable($v):
+                        case false === $v:
+                        case !is_file($v):
+                        case !is_readable($v):
                             continue; // or return false, throw new InvalidArgumentException
                     }
                     $data = file_get_contents($v);
-                    $v = call_user_func("end", explode(DIRECTORY_SEPARATOR, $v));
+                    $v = end(explode(DIRECTORY_SEPARATOR, $v));
+                    // $v = call_user_func("end", explode(DIRECTORY_SEPARATOR, $v));
                     $k = str_replace($disallow, "_", $k);
-                    $v = str_replace($disallow, "_", $v);
+                    $v = str_replace($disallow, "_", $v); 
                     $body[] = implode("\r\n", array(
                         "Content-Disposition: form-data; name=\"{$k}\"; filename=\"{$v}\"",
                         "Content-Type: application/octet-stream",
                         "",
                         $data,
                     ));
-                } else {
+                } elseif (is_array($v)) {
                     if (!isset($v["data"])) {
                         continue;
                     }
@@ -197,13 +201,14 @@ class Base {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         if (isset($post) && !empty($post)) {
-            // Use goto break IF.
+            // Break IF using goto.
             if (is_array($post)) {
                 if (isset($post["assoc"])) {
                     if (!is_array($post["assoc"])) {
                         goto afterPost;
                     }
                 } else {
+                    // Empty array.
                     $post["assoc"] = array();
                 }
                 if (isset($post["files"])) {
@@ -213,7 +218,7 @@ class Base {
                 } else {
                     $post["files"] = array();
                 }
-                $postfields($ch, $post["assoc"], $post["files"]);
+                $setPostFields($ch, $post["assoc"], $post["files"]);
             } elseif (is_string($post)) {
                 curl_setopt($ch, CURLOPT_POST, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
