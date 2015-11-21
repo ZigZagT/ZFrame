@@ -63,11 +63,23 @@ class Base {
         return $result;
     }
 
-    public static function browser_request($url, $get, $post, $options) {
+    /**
+     * Emulate http request like a real browser, using curl. Support cookies, no javascript.
+     * @param String $url Request URL in curl.
+     * @param String $get <i>[Optional]</i> <b>Urlencoded</b> get string, will be appended with an prefix "?" after $url.
+     * @param String $post <i>[Optional]</i> <b>Urlencoded</b> post string, or be an array ["assoc" => array(), "files" => <i>&lt;file info&gt;</i>]<br>
+     * <i>&lt;file info&gt;</i> is also an associate array as <br> "name" => "path" <br> or <br> "name" => ["filename" => "random filename"<i>(default)</i>, "type" => "application/octet-stream"<i>(default)</i>, "data" => <i>&lt;Binary Data&gt;</i>]". <br>
+     * Both sub array in this field are optional. Invalid input will be ignored without any promot. 
+     * @param Array $options <i>[Optional]</i> Custom curl options <b>ARRAY</b>.
+     * @param Bool $resetCookie <i>[Optional]</i> This will <b>only<b> clear cookies for the request $url.
+     * @return Mixed Content from remote server, or <i>FALSE</i> on error.
+     */
+    public static function browser_request($url, $get, $post, $options, $resetCookie = FALSE) {
         $charset = "UTF-8";
         $useURL = $url;
         $cookieURL = $url;
         $accept = "";
+        $header = array();
         $matches = array();
         if (preg_match('/(\S+):\/\/([^\/:]+)(:\d*)?([^# ]*)/', $url, $matches)) {
             $cookieURL = $matches[2];
@@ -85,10 +97,98 @@ class Base {
                 $charset = NULL;
             }
             if (preg_match("/set\-cookie:([^\r\n]*)/i", $header_line, $matches)) {
-                $_SESSION["browser_cookie_{$cookieURL}"] = $matches[1];
+                $_SESSION["browser_cookie_{$cookieURL}"] = trim($matches[1]);
             }
             return strlen($header_line);
         };
+
+        /**
+         * For safe multipart POST request.
+         * 
+         * @param resource $ch cURL resource
+         * @param array $assoc "name" => "value"
+         * @param array $files "name" => "path" or "name" => ["filename" => "random filename"<i>(default)</i>, "type" => "application/octet-stream"<i>(default)</i>, "data" => <i>&lt;Binary Data&gt;</i>]"
+         * @return bool
+         */
+        $postfields = function(&$ch, array $assoc = array(), array $files = array()) use(&$header) {
+            // invalid characters for "name" and "filename"
+            static $disallow = array("\0", "\"", "\r", "\n");
+
+            // build normal parameters
+            foreach ($assoc as $k => $v) {
+                $k = str_replace($disallow, "_", $k);
+                $body[] = implode("\r\n", array(
+                    "Content-Disposition: form-data; name=\"{$k}\"",
+                    "",
+                    filter_var($v),
+                ));
+            }
+
+            // build file parameters
+            foreach ($files as $k => $v) {
+                if (!is_array($v)) {
+                    switch (true) {
+                        case false === $v = realpath(filter_var($v)):
+                        case!is_file($v):
+                        case!is_readable($v):
+                            continue; // or return false, throw new InvalidArgumentException
+                    }
+                    $data = file_get_contents($v);
+                    $v = call_user_func("end", explode(DIRECTORY_SEPARATOR, $v));
+                    $k = str_replace($disallow, "_", $k);
+                    $v = str_replace($disallow, "_", $v);
+                    $body[] = implode("\r\n", array(
+                        "Content-Disposition: form-data; name=\"{$k}\"; filename=\"{$v}\"",
+                        "Content-Type: application/octet-stream",
+                        "",
+                        $data,
+                    ));
+                } else {
+                    if (!isset($v["data"])) {
+                        continue;
+                    }
+                    if (!isset($v["filename"]) || empty($v["filename"])) {
+                        $v["filename"] = md5(mt_rand() . microtime());
+                    }
+                    if (!isset($v["type"]) || empty($v["type"])) {
+                        $v["type"] = "application/octet-stream";
+                    }
+                    $data = $v["data"];
+                    $k = str_replace($disallow, "_", $k);
+                    $v["filename"] = str_replace($disallow, "_", $v["filename"]);
+                    $v["type"] = str_replace($disallow, "_", $v["type"]);
+                    $body[] = implode("\r\n", array(
+                        "Content-Disposition: form-data; name=\"{$k}\"; filename=\"{$v["filename"]}\"",
+                        "Content-Type: {$v["type"]}",
+                        "",
+                        $data,
+                    ));
+                }
+            }
+
+            // generate safe boundary 
+            do {
+                $boundary = "----" . md5(mt_rand() . microtime());
+            } while (preg_grep("/{$boundary}/", $body));
+
+            // add boundary for each parameters
+            array_walk($body, function (&$part) use ($boundary) {
+                $part = "--{$boundary}\r\n{$part}";
+            });
+
+            // add final boundary
+            $body[] = "--{$boundary}--";
+            $body[] = "";
+
+            $header[] = "Expect:";
+            $header[] = "Content-Type: multipart/form-data; boundary={$boundary}";
+            // set options
+            return @curl_setopt_array($ch, array(
+                        CURLOPT_POST => true,
+                        CURLOPT_POSTFIELDS => implode("\r\n", $body)
+            ));
+        };
+
         $ch = curl_init();
         if (isset($get) && !empty($get)) {
             $useURL .= "?{$get}";
@@ -97,11 +197,35 @@ class Base {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         if (isset($post) && !empty($post)) {
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            // Use goto break IF.
+            if (is_array($post)) {
+                if (isset($post["assoc"])) {
+                    if (!is_array($post["assoc"])) {
+                        goto afterPost;
+                    }
+                } else {
+                    $post["assoc"] = array();
+                }
+                if (isset($post["files"])) {
+                    if (!is_array($post["files"])) {
+                        goto afterPost;
+                    }
+                } else {
+                    $post["files"] = array();
+                }
+                $postfields($ch, $post["assoc"], $post["files"]);
+            } elseif (is_string($post)) {
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            }
         }
+        afterPost:
         if (isset($_SESSION["browser_cookie_{$cookieURL}"])) {
-            curl_setopt($ch, CURLOPT_COOKIE, $_SESSION["browser_cookie_{$cookieURL}"]);
+            if ($resetCookie) {
+                unset($_SESSION["browser_cookie_{$cookieURL}"]);
+            } else {
+                curl_setopt($ch, CURLOPT_COOKIE, $_SESSION["browser_cookie_{$cookieURL}"]);
+            }
         }
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         curl_setopt($ch, CURLOPT_HEADERFUNCTION, $proccessHeader);
@@ -110,7 +234,10 @@ class Base {
         curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
         curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
         if (preg_match('/.*\.json$/i', $accept)) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json, text/javascript, */* ; q=0.01']);
+            $header[] = 'Accept:application/json,text/javascript,text/html,application/xhtml+xml,application/xml,image/webp,*/*; q=0.01';
+        }
+        if (!empty($header)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         }
         if (isset($options) && !empty($options)) {
             curl_setopt_array($ch, $options);

@@ -70,8 +70,12 @@ class MadCourse {
         $match = array();
         preg_match("/\/manager\/coursearrange\/showTimetable\.do\?id=(\d*)/i", $data, $match);
         $id = $match[1];
-        $year = 35;
+        $year = intval(date('Y')) - 1980;
+        $month = intval(date('m'));
         $term = 1;
+        if ($month >= 8) {
+            $term = 3;
+        }
 
         $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=BASE';
         // $corseurl = 'http://202.204.105.22/academic/manager/coursearrange/showTimetable.do?id=%s&yearid=%s&termid=%s&timetableType=STUDENT&sectionType=COMBINE';
