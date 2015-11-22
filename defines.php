@@ -16,6 +16,9 @@
  * limitations under the License.
  */
 
+// Ensure this file be included only once.
+if (defined('_ZDEFINE')) goto EOF;
+
 defined('_ZEXEC') or die;
 define('_ZDEFINE', 1);
 define('_ZPHP_VERSION', 'PHP version 5.4+ is required.');
@@ -34,3 +37,5 @@ define('DB_NAME', 'name');
 define('DB_PREFIX', 'z_');
 define('DB_USERNAME', 'user');
 define('DB_PASSWORD', 'pass');
+
+EOF:

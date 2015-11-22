@@ -25,7 +25,7 @@ if (version_compare(PHP_VERSION, '5.4', '<')) {
 }
 set_include_path(ZPATH_CLASS_DIR . PATH_SEPARATOR . get_include_path());
 spl_autoload_extensions(".class.php");
-spl_autoload_register(spl_autoload);
+@spl_autoload_register(spl_autoload);
 
 function is_associative_array(array $arr) {
     return array_keys($arr) !== range(0, count($arr) - 1);

@@ -14,6 +14,7 @@
 
 // class names for instanceof
 // TODO move them as class constants into phpQuery
+// TODO: change file extension as class.php
 define('DOMDOCUMENT', 'DOMDocument');
 define('DOMELEMENT', 'DOMElement');
 define('DOMNODELIST', 'DOMNodeList');
