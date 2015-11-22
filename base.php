@@ -23,7 +23,7 @@ if (!defined('_ZDEFINE')) {
 if (version_compare(PHP_VERSION, '5.4', '<')) {
     die(_ZPHP_VERSION);
 }
-set_include_path(ZPATH_CLASS_DIR . PATH_SEPARATOR . get_include_path());
+set_include_path(ZPATH_CLASS_DIR . PATH_SEPARATOR . ZPATH_THIRDPARTY_CLASS_DIR . PATH_SEPARATOR . get_include_path());
 spl_autoload_extensions(".class.php");
 @spl_autoload_register(spl_autoload);
 

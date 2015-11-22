@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class WechatAPI | ZFrame</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+		</div>
+
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Articles.html">Articles</a></li>
+				<li><a href="class-Base.html">Base</a></li>
+				<li><a href="class-DatabaseController.html">DatabaseController</a></li>
+				<li><a href="class-ErrorPackage.html">ErrorPackage</a></li>
+				<li><a href="class-HTML.html">HTML</a></li>
+				<li><a href="class-Lesson.html">Lesson</a></li>
+				<li><a href="class-Log.html">Log</a></li>
+				<li><a href="class-Login.html">Login</a></li>
+				<li><a href="class-MadCourse.html">MadCourse</a></li>
+				<li><a href="class-McMyAdmin.html">McMyAdmin</a></li>
+				<li><a href="class-Menu.html">Menu</a></li>
+				<li><a href="class-MenuItem.html">MenuItem</a></li>
+				<li><a href="class-MenuItem_key.html">MenuItem_key</a></li>
+				<li><a href="class-MenuItem_url.html">MenuItem_url</a></li>
+				<li><a href="class-pac.html">pac</a></li>
+				<li><a href="class-Robots.html">Robots</a></li>
+				<li><a href="class-UIElement.html">UIElement</a></li>
+				<li class="active"><a href="class-WechatAPI.html">WechatAPI</a></li>
+				<li><a href="class-WechatMenu.html">WechatMenu</a></li>
+				<li><a href="class-WechatMessage.html">WechatMessage</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-LowPrivilegeException.html">LowPrivilegeException</a></li>
+				<li><a href="class-OfficialAPIException.html">OfficialAPIException</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-is_associative_array.html">is_associative_array</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class WechatAPI</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		
+
+			<b>Located at</b> <a href="source-class-WechatAPI.html#21-229" title="Go to source code">librarie/wechatapi.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="curl_request" id="_curl_request">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_curl_request">#</a>
+		<code><a href="source-class-WechatAPI.html#23-61" title="Go to source code">curl_request</a>( <span>string <var>$url</var></span>, <span>string <var>$postData</var></span>, <span>integer <var>$timeout</var></span>, <span>string <var>$useragent</var></span> )</code>
+
+		<div class="description short">
+			<p>Establish an http request with curl.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Establish an http request with curl.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd></dd>
+					<dt><var>$postData</var></dt>
+					<dd><i>[Optional]</i></dd>
+					<dt><var>$timeout</var></dt>
+					<dd><i>[Optional]</i></dd>
+					<dt><var>$useragent</var></dt>
+					<dd><i>[Optional]</i></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Return the result on success, <b>FALSE</b> on failure.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkPrivilege" id="_checkPrivilege">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkPrivilege">#</a>
+		<code><a href="source-class-WechatAPI.html#63-95" title="Go to source code">checkPrivilege</a>( <span>string <var>$privilegeMask</var></span> )</code>
+
+		<div class="description short">
+			<p>check specified privilege bits
+this function will check the current privilege <b>AND</b> privilege mask value.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>check specified privilege bits
+this function will check the current privilege <b>AND</b> privilege mask value.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$privilegeMask</var></dt>
+					<dd><p>bits as <b>string</b></p>
+
+<table border="1">
+<tr align="center">
+比特位</td>
+4</td>
+3</td>
+2</td>
+1</td>
+</tr>
+<tr align="center">
+对应权限级</td>
+认证服务号</td>
+未认证服务号</td>
+认证订阅号</td>
+未认证订阅号</td>
+</tr>
+</table></dd>
+				</dl></div>
+
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-LowPrivilegeException.html">LowPrivilegeException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="IsErrorPackage" id="_IsErrorPackage">
+
+		<td class="attributes"><code>
+			 private static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_IsErrorPackage">#</a>
+		<code><a href="source-class-WechatAPI.html#97-113" title="Go to source code">IsErrorPackage</a>( <span>JsonObject <var>$jsonObj</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$jsonObj</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>Return an ErrorPackage instance or False.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAccessToken" id="_getAccessToken">
+
+		<td class="attributes"><code>
+			 public static
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAccessToken">#</a>
+		<code><a href="source-class-WechatAPI.html#115-144" title="Go to source code">getAccessToken</a>( <span>string <var>$appid</var></span>, <span>string <var>$appsecret</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$appid</var></dt>
+					<dd></dd>
+					<dt><var>$appsecret</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br><p>when request success, returns a token array:<br>'ACCESS_TOKEN' => <b>string</b> access token, <br>'EXPIRED' => <b>int</b> expired time in second
+<br><br>when request failed, returns an <b>ErrorPackage</b></p>
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-OfficialAPIException.html">OfficialAPIException</a></code><br>when get process failed
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getServerIP" id="_getServerIP">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getServerIP">#</a>
+		<code><a href="source-class-WechatAPI.html#146-161" title="Go to source code">getServerIP</a>( <span> <var>$accessToken</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkSignature" id="_checkSignature">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkSignature">#</a>
+		<code><a href="source-class-WechatAPI.html#163-190" title="Go to source code">checkSignature</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="receiveMessage" id="_receiveMessage">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-WechatMessage.html">WechatMessage</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_receiveMessage">#</a>
+		<code><a href="source-class-WechatAPI.html#192-214" title="Go to source code">receiveMessage</a>( <span>String <var>$xmlContent</var></span> )</code>
+
+		<div class="description short">
+			<p>Convert an XML structure to a WechatMessage structure.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Convert an XML structure to a WechatMessage structure.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$xmlContent</var></dt>
+					<dd>[Optional] Default will collect xml data from HTTP_RAW_POST_DATA.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-WechatMessage.html">WechatMessage</a></code><br>throw an expection when invalid XML data.
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><a href="class-OfficialAPIException.html">OfficialAPIException</a></code>
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createMenu" id="_createMenu">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createMenu">#</a>
+		<code><a href="source-class-WechatAPI.html#216-227" title="Go to source code">createMenu</a>( <span><code><a href="class-WechatMenu.html">WechatMenu</a></code> <var>$menu</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		ZFrame API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

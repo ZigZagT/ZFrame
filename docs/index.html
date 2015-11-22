@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>ZFrame</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+<span>Overview</span>
+
+		<div id="groups">
+		</div>
+
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Articles.html">Articles</a></li>
+				<li><a href="class-Base.html">Base</a></li>
+				<li><a href="class-DatabaseController.html">DatabaseController</a></li>
+				<li><a href="class-ErrorPackage.html">ErrorPackage</a></li>
+				<li><a href="class-HTML.html">HTML</a></li>
+				<li><a href="class-Lesson.html">Lesson</a></li>
+				<li><a href="class-Log.html">Log</a></li>
+				<li><a href="class-Login.html">Login</a></li>
+				<li><a href="class-MadCourse.html">MadCourse</a></li>
+				<li><a href="class-McMyAdmin.html">McMyAdmin</a></li>
+				<li><a href="class-Menu.html">Menu</a></li>
+				<li><a href="class-MenuItem.html">MenuItem</a></li>
+				<li><a href="class-MenuItem_key.html">MenuItem_key</a></li>
+				<li><a href="class-MenuItem_url.html">MenuItem_url</a></li>
+				<li><a href="class-pac.html">pac</a></li>
+				<li><a href="class-Robots.html">Robots</a></li>
+				<li><a href="class-UIElement.html">UIElement</a></li>
+				<li><a href="class-WechatAPI.html">WechatAPI</a></li>
+				<li><a href="class-WechatMenu.html">WechatMenu</a></li>
+				<li><a href="class-WechatMessage.html">WechatMessage</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-LowPrivilegeException.html">LowPrivilegeException</a></li>
+				<li><a href="class-OfficialAPIException.html">OfficialAPIException</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-is_associative_array.html">is_associative_array</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search" autofocus>
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li class="active">
+<span>Overview</span>			</li>
+			<li>
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content">
+	<h1>ZFrame</h1>
+
+
+
+
+
+<table class="summary" id="classes">
+<caption>Classes summary</caption>
+<tr>
+	<td class="name"><a href="class-Articles.html">Articles</a></td>
+	<td>Properties: Title, Description, PicUrl, Url</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Base.html">Base</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-DatabaseController.html">DatabaseController</a></td>
+	<td><p>hold and manage the database connection,
+and process the SQL query</p></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-ErrorPackage.html">ErrorPackage</a></td>
+	<td>Hold and proccess the error message from the official api.</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-HTML.html">HTML</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Lesson.html">Lesson</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Log.html">Log</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Login.html">Login</a></td>
+	<td>Description of login</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-MadCourse.html">MadCourse</a></td>
+	<td><p>NEED UPDATE to use Base::browser_request();
+Use $_SESSION['remote_cookie']</p></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-McMyAdmin.html">McMyAdmin</a></td>
+	<td>McMyAdminAPI</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Menu.html">Menu</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-MenuItem.html">MenuItem</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-MenuItem_key.html">MenuItem_key</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-MenuItem_url.html">MenuItem_url</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-pac.html">pac</a></td>
+	<td><p>Use this class to control and generate pac file.<br>
+Pac file templates are placed under <i>librarie/pac_templates</i>.<br>
+Pac file template is set by <i>setTemplate()</i>, default is <i>librarie/pac_templates/default.js</i>.<br>
+Each template requires a set of arguments. Arguments are passed by <i>setTemplateArguments()</i>.<br>
+These arguments are used to replace placeholder in the template file.<br>
+Placeholders are comment strings looks like <b>/&#42;%arg<i>&lt;arg_number&gt;</i>% description &#42;/</b>.<br>
+For example, the first three arguments passed into <i>setTemplateArguments()</i> will replace /&#42;%arg0%&#42;/, /&#42;%arg1%&#42;/, /&#42;%arg2%&#42;/ in order.<br>
+You can also write descriptions in the placeholder label, jast keep the format of "%argn%" parts.</p></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-Robots.html">Robots</a></td>
+	<td>Description of robots</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-UIElement.html">UIElement</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-WechatAPI.html">WechatAPI</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-WechatMenu.html">WechatMenu</a></td>
+	<td>Description of menu</td>
+</tr>
+<tr>
+	<td class="name"><a href="class-WechatMessage.html">WechatMessage</a></td>
+	<td>Wechat Message Structure</td>
+</tr>
+</table>
+
+
+
+<table class="summary" id="exceptions">
+<caption>Exceptions summary</caption>
+<tr>
+	<td class="name"><a href="class-LowPrivilegeException.html">LowPrivilegeException</a></td>
+	<td></td>
+</tr>
+<tr>
+	<td class="name"><a href="class-OfficialAPIException.html">OfficialAPIException</a></td>
+	<td></td>
+</tr>
+</table>
+
+
+<table class="summary" id="functions">
+<caption>Functions summary</caption>
+<tr>
+	<td class="name"><a href="function-is_associative_array.html">is_associative_array</a></td>
+	<td></td>
+</tr>
+</table>
+</div>
+
+	<div id="footer">
+		ZFrame API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?cd021bc814832c24a7cec5319ea03335bfba1caf"></script>
+<script src="elementlist.js?85426990410587a0b689fc81b006b33c5266ea9d"></script>
+</body>
+</html>

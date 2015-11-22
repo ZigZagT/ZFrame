@@ -1,0 +1,22 @@
+source:
+    - ./
+
+destination: ./docs
+
+title: ZFrame
+
+charset: 
+    - UTF-8
+
+accessLevels:
+    - public
+    - protected
+    - private
+
+exclude:
+    - "*/thirdparty/*"
+    - "*/examples/*"
+
+php:
+tree:
+todo:

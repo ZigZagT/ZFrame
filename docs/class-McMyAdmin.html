@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class McMyAdmin | ZFrame</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+		</div>
+
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Articles.html">Articles</a></li>
+				<li><a href="class-Base.html">Base</a></li>
+				<li><a href="class-DatabaseController.html">DatabaseController</a></li>
+				<li><a href="class-ErrorPackage.html">ErrorPackage</a></li>
+				<li><a href="class-HTML.html">HTML</a></li>
+				<li><a href="class-Lesson.html">Lesson</a></li>
+				<li><a href="class-Log.html">Log</a></li>
+				<li><a href="class-Login.html">Login</a></li>
+				<li><a href="class-MadCourse.html">MadCourse</a></li>
+				<li class="active"><a href="class-McMyAdmin.html">McMyAdmin</a></li>
+				<li><a href="class-Menu.html">Menu</a></li>
+				<li><a href="class-MenuItem.html">MenuItem</a></li>
+				<li><a href="class-MenuItem_key.html">MenuItem_key</a></li>
+				<li><a href="class-MenuItem_url.html">MenuItem_url</a></li>
+				<li><a href="class-pac.html">pac</a></li>
+				<li><a href="class-Robots.html">Robots</a></li>
+				<li><a href="class-UIElement.html">UIElement</a></li>
+				<li><a href="class-WechatAPI.html">WechatAPI</a></li>
+				<li><a href="class-WechatMenu.html">WechatMenu</a></li>
+				<li><a href="class-WechatMessage.html">WechatMessage</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-LowPrivilegeException.html">LowPrivilegeException</a></li>
+				<li><a href="class-OfficialAPIException.html">OfficialAPIException</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-is_associative_array.html">is_associative_array</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class McMyAdmin</h1>
+
+
+	<div class="description">
+	<p>McMyAdminAPI</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		
+
+				<b>Author:</b>
+				master<br>
+			<b>Located at</b> <a href="source-class-McMyAdmin.html#21-305" title="Go to source code">librarie/mcmyadmin.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-McMyAdmin.html#34-42" title="Go to source code">__construct</a>( <span>String <var>$url</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd>request url, like http://mc.fuckcugb.com/data.json</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="init" id="_init">
+
+		<td class="attributes"><code>
+			 public static
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_init">#</a>
+		<code><a href="source-class-McMyAdmin.html#44-56" title="Go to source code">init</a>( <span>String <var>$url</var></span> )</code>
+
+		<div class="description short">
+			<p>Initialize global McMyAdmin object in $_SESSION['MC']</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Initialize global McMyAdmin object in $_SESSION['MC']</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$url</var></dt>
+					<dd><i>[Optional]</i></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Login" id="_Login">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Login">#</a>
+		<code><a href="source-class-McMyAdmin.html#58-90" title="Go to source code">Login</a>( <span>String <var>$username</var></span>, <span>String <var>$password</var></span>, <span>String <var>$token</var></span>, <span>String <var>$url</var></span> )</code>
+
+		<div class="description short">
+			<p>If the <b>$isLogin</b> is set to <b>TRUE</b>, this method will return immediately.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>If the <b>$isLogin</b> is set to <b>TRUE</b>, this method will return immediately.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$username</var></dt>
+					<dd></dd>
+					<dt><var>$password</var></dt>
+					<dd><i>[Optional]</i></dd>
+					<dt><var>$token</var></dt>
+					<dd><i>[Optional]</i></dd>
+					<dt><var>$url</var></dt>
+					<dd><i>[Optional]</i></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>TRUE on success. FALSE on failed.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SendChat" id="_SendChat">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SendChat">#</a>
+		<code><a href="source-class-McMyAdmin.html#92-103" title="Go to source code">SendChat</a>( <span> <var>$message</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="GetChat" id="_GetChat">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_GetChat">#</a>
+		<code><a href="source-class-McMyAdmin.html#105-133" title="Go to source code">GetChat</a>( <span>Int <var>$since</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$since</var></dt>
+					<dd><i>[Optional]</i> Default is the <i>timestamp</i> variable returned from remote server last time. <i>since</i> variable is initialized with -1, which means request all available chats.</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Fill" id="_Fill">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Fill">#</a>
+		<code><a href="source-class-McMyAdmin.html#135-298" title="Go to source code">Fill</a>( <span>integer <var>$x1</var></span>, <span>integer <var>$y1</var></span>, <span>integer <var>$z1</var></span>, <span>integer <var>$x2</var></span>, <span>integer <var>$y2</var></span>, <span>integer <var>$z2</var></span>, <span>string <var>$TileName</var></span>, <span>integer <var>$dataValue</var></span>, <span>string <var>$oldBlockHandling</var> = <span class="php-quote">''</span></span>, <span>mixed <var>$others</var> = <span class="php-keyword1">null</span></span>, <span>boolean <var>$positive</var> = <span class="php-keyword1">true</span></span> )</code>
+
+		<div class="description short">
+			<p>/Fill blocks in the game.<br>
+Arguments will be passed to the game whitout syntax check by calling the <i>SendChat</i> method directly.<br>
+If the first argument is an array, this array will be treat as filled with required arguments and will passed to the game separately, and other arguments will be ignored.<br>
+===========================================<br>
+<i>instruction from:http://minecraft.gamepedia.com/Commands</i><br>
+<b>Syntax:</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;fill <x1> <y1> <z1> <x2> <y2> <z2> <TileName> [dataValue] [oldBlockHandling] [dataTag]<br>
+The fill command also has an optional alternate syntax when using the replace option:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fill <x1> <y1> <z1> <x2> <y2> <z2> <TileName> <dataValue> replace [replaceTileName] [replaceDataValue]<br>
+<b>Arguments：</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;x1 y1 z1 and x2 y2 z2<br>
+Specifies any two opposing corner blocks of the region to be filled (the "fill region"). May use tilde notation to specify distances relative to the command's execution.<br>
+The blocks that make up the corners extend in the positive direction from the coordinates used to identify them. Because of this, the lesser coordinates of each axis will be right on the region boundary, but the greater coordinates will be one block from the boundary, and the block volume of the source region will be (xgreater - xlesser + 1) × (ygreater - ylesser + 1) × (zgreater - zlesser + 1). For example, 0 0 0 0 0 0 has a 1-block volume, and 0 0 0 1 1 1 and 1 1 1 0 0 0 both identify the same region with an 8-block volume.<br>
+<b>TileName</b><br>
+Specifies the block to fill the region with. Must be a block id (for example, minecraft:stone).<br>
+<b>dataValue (optional)</b><br>
+Specifies the block data to use for the fill block. Must be between 0 and 15 (inclusive).<br>
+<b>oldBlockHandling (optional)</b><br>
+Must be one of:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;destroy - Replaces all blocks (including air) in the fill region with the specified block, dropping the existing blocks (including those that are unchanged) and block contents as entities as if they had been mined with an unenchanted diamond shovel or pickaxe. (Blocks that can only be mined with shears, such as vines, will not drop; neither will liquids.)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hollow - Replaces only blocks on the outer edge of the fill region with the specified block. Inner blocks are changed to air, dropping their contents as entities but not themselves.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;keep - Replaces only air blocks in the fill region with the specified block.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;outline - Replaces only blocks on the outer edge of the fill region with the specified block. Inner blocks are not affected.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;replace - Replaces all blocks (including air) in the fill region with the specified block, without dropping blocks or block contents as entities. Optionally, instead of specifying a data tag for the replacing block, block id and data values may be specified to limit which blocks are replaced (see replaceTileName and replaceDataValue below)<br>
+If not specified, defaults to replace.<br>
+<b>dataTag (optional)</b><br>
+Specifies the data tag to use for the fill block (for example, contents of a chest, patterns on a banner, etc.). Must be a compound NBT tag (for example, {CustomName:Fred}). Cannot be combined with the replaceTileName and replaceDataValue arguments.<br>
+<b>replaceTileName replaceDataValue (optional)</b><br>
+Arguments are only valid when oldBlockHandling is replace. Cannot be combined with the dataTag argument.<br>
+Specifies the block id and data of the blocks in the fill region to be replaced. If replaceDataValue is not specified, data value is ignored when determining which blocks to replace. If both arguments are not specified, replaces all blocks in the fill region.<br>
+<b>Result</b><br>
+Fails if the arguments are not specified correctly, if the fill region is not rendered, if the block volume of the fill region is greater than 32768, if dataValue or dataTag are invalid for the specified block id, or if no blocks were changed.<br>
+On success, changes blocks in the fill region to the specified block.<br></p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>/Fill blocks in the game.<br>
+Arguments will be passed to the game whitout syntax check by calling the <i>SendChat</i> method directly.<br>
+If the first argument is an array, this array will be treat as filled with required arguments and will passed to the game separately, and other arguments will be ignored.<br>
+===========================================<br>
+<i>instruction from:http://minecraft.gamepedia.com/Commands</i><br>
+<b>Syntax:</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;fill <x1> <y1> <z1> <x2> <y2> <z2> <TileName> [dataValue] [oldBlockHandling] [dataTag]<br>
+The fill command also has an optional alternate syntax when using the replace option:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;fill <x1> <y1> <z1> <x2> <y2> <z2> <TileName> <dataValue> replace [replaceTileName] [replaceDataValue]<br>
+<b>Arguments：</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;x1 y1 z1 and x2 y2 z2<br>
+Specifies any two opposing corner blocks of the region to be filled (the "fill region"). May use tilde notation to specify distances relative to the command's execution.<br>
+The blocks that make up the corners extend in the positive direction from the coordinates used to identify them. Because of this, the lesser coordinates of each axis will be right on the region boundary, but the greater coordinates will be one block from the boundary, and the block volume of the source region will be (xgreater - xlesser + 1) × (ygreater - ylesser + 1) × (zgreater - zlesser + 1). For example, 0 0 0 0 0 0 has a 1-block volume, and 0 0 0 1 1 1 and 1 1 1 0 0 0 both identify the same region with an 8-block volume.<br>
+<b>TileName</b><br>
+Specifies the block to fill the region with. Must be a block id (for example, minecraft:stone).<br>
+<b>dataValue (optional)</b><br>
+Specifies the block data to use for the fill block. Must be between 0 and 15 (inclusive).<br>
+<b>oldBlockHandling (optional)</b><br>
+Must be one of:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;destroy - Replaces all blocks (including air) in the fill region with the specified block, dropping the existing blocks (including those that are unchanged) and block contents as entities as if they had been mined with an unenchanted diamond shovel or pickaxe. (Blocks that can only be mined with shears, such as vines, will not drop; neither will liquids.)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;hollow - Replaces only blocks on the outer edge of the fill region with the specified block. Inner blocks are changed to air, dropping their contents as entities but not themselves.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;keep - Replaces only air blocks in the fill region with the specified block.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;outline - Replaces only blocks on the outer edge of the fill region with the specified block. Inner blocks are not affected.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;replace - Replaces all blocks (including air) in the fill region with the specified block, without dropping blocks or block contents as entities. Optionally, instead of specifying a data tag for the replacing block, block id and data values may be specified to limit which blocks are replaced (see replaceTileName and replaceDataValue below)<br>
+If not specified, defaults to replace.<br>
+<b>dataTag (optional)</b><br>
+Specifies the data tag to use for the fill block (for example, contents of a chest, patterns on a banner, etc.). Must be a compound NBT tag (for example, {CustomName:Fred}). Cannot be combined with the replaceTileName and replaceDataValue arguments.<br>
+<b>replaceTileName replaceDataValue (optional)</b><br>
+Arguments are only valid when oldBlockHandling is replace. Cannot be combined with the dataTag argument.<br>
+Specifies the block id and data of the blocks in the fill region to be replaced. If replaceDataValue is not specified, data value is ignored when determining which blocks to replace. If both arguments are not specified, replaces all blocks in the fill region.<br>
+<b>Result</b><br>
+Fails if the arguments are not specified correctly, if the fill region is not rendered, if the block volume of the fill region is greater than 32768, if dataValue or dataTag are invalid for the specified block id, or if no blocks were changed.<br>
+On success, changes blocks in the fill region to the specified block.<br></p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$x1</var></dt>
+					<dd><b>REQUIRED</b></dd>
+					<dt><var>$y1</var></dt>
+					<dd><b>REQUIRED</b></dd>
+					<dt><var>$z1</var></dt>
+					<dd><b>REQUIRED</b></dd>
+					<dt><var>$x2</var></dt>
+					<dd><b>REQUIRED</b></dd>
+					<dt><var>$y2</var></dt>
+					<dd><b>REQUIRED</b></dd>
+					<dt><var>$z2</var></dt>
+					<dd><b>REQUIRED</b></dd>
+					<dt><var>$TileName</var></dt>
+					<dd><b>REQUIRED</b></dd>
+					<dt><var>$dataValue</var></dt>
+					<dd>Recommended.</dd>
+					<dt><var>$oldBlockHandling</var></dt>
+					<dd>Require above arguments NOT empty.</dd>
+					<dt><var>$others</var></dt>
+					<dd>Can be multiple values.</dd>
+					<dt><var>$positive</var></dt>
+					<dd>If true, and and y value is bigger than 256, the method will treat the y value as 256, instead of doing nothing but return false. <br><b>NOTE: </b>If you use more than one value for $others, the default value of $positive will be overwritten and you should specify the value of $positive explicitly.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Diagnose" id="_Diagnose">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Diagnose">#</a>
+		<code><a href="source-class-McMyAdmin.html#300-303" title="Go to source code">Diagnose</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="MCMASESSIONID" id="$MCMASESSIONID">
+		<td class="attributes"><code>
+			private  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-McMyAdmin.html#28" title="Go to source code"><var>$MCMASESSIONID</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$MCMASESSIONID" class="anchor">#</a>
+				<code><span class="php-quote">&quot;&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="url" id="$url">
+		<td class="attributes"><code>
+			private  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-McMyAdmin.html#29" title="Go to source code"><var>$url</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$url" class="anchor">#</a>
+				<code><span class="php-quote">&quot;&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="since" id="$since">
+		<td class="attributes"><code>
+			private  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-McMyAdmin.html#30" title="Go to source code"><var>$since</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$since" class="anchor">#</a>
+				<code>-<span class="php-num">1</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		ZFrame API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

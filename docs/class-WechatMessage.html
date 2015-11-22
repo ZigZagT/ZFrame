@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class WechatMessage | ZFrame</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+		</div>
+
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Articles.html">Articles</a></li>
+				<li><a href="class-Base.html">Base</a></li>
+				<li><a href="class-DatabaseController.html">DatabaseController</a></li>
+				<li><a href="class-ErrorPackage.html">ErrorPackage</a></li>
+				<li><a href="class-HTML.html">HTML</a></li>
+				<li><a href="class-Lesson.html">Lesson</a></li>
+				<li><a href="class-Log.html">Log</a></li>
+				<li><a href="class-Login.html">Login</a></li>
+				<li><a href="class-MadCourse.html">MadCourse</a></li>
+				<li><a href="class-McMyAdmin.html">McMyAdmin</a></li>
+				<li><a href="class-Menu.html">Menu</a></li>
+				<li><a href="class-MenuItem.html">MenuItem</a></li>
+				<li><a href="class-MenuItem_key.html">MenuItem_key</a></li>
+				<li><a href="class-MenuItem_url.html">MenuItem_url</a></li>
+				<li><a href="class-pac.html">pac</a></li>
+				<li><a href="class-Robots.html">Robots</a></li>
+				<li><a href="class-UIElement.html">UIElement</a></li>
+				<li><a href="class-WechatAPI.html">WechatAPI</a></li>
+				<li><a href="class-WechatMenu.html">WechatMenu</a></li>
+				<li class="active"><a href="class-WechatMessage.html">WechatMessage</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-LowPrivilegeException.html">LowPrivilegeException</a></li>
+				<li><a href="class-OfficialAPIException.html">OfficialAPIException</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-is_associative_array.html">is_associative_array</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class WechatMessage</h1>
+
+
+	<div class="description">
+	<p>Wechat Message Structure</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		
+
+				<b>Author:</b>
+				master<br>
+				<b>Param:</b>
+				<p>message_properties Valid properties are as follows
+<br></p>
+
+<table align="left" border="1">
+<tr>
+<td><b>Common Properties</b></td>
+<td>ToUserName</td>
+<td>FromUserName</td>
+<td>CreateTime</td>
+<td>MsgId<i>(received message(except events) only)</i></td>
+<td><i><b>MsgType</b></i></td>
+</tr>
+</table>
+
+<p><br></p>
+
+<table align="left" border="1">
+<tr>
+<td rowspan="5">Special Property Set.<br><br><br>Property Name are <b>Bold</b>,<br>Property value are <i>italic</i></td>
+<td><b>MsgType</b></td>
+<td><i>text</i></td>
+<td><i>image</i></td>
+<td><i>voice</i></td>
+<td><i>video</i></td>
+<td><i>location</i></td>
+<td><i>link</i></td>
+<td><i>event</i></td>
+</tr>
+<tr>
+<td rowspan="4">Properties</td>
+<td><b>Content</b></td>
+<td><b>MediaId</b></td>
+<td><b>MediaId</b></td>
+<td><b>MediaId</b></td>
+<td><b>Location_X</b></td>
+<td><b>Title</b></td>
+<td><b>Event</b></td>
+</tr>
+<tr>
+<td> </td>
+<td><b>PicUrl</b></td>
+<td><b>Format</b></td>
+<td><b>ThumbMediaId</b></td>
+<td><b>Location_Y</b></td>
+<td><b>Description</b></td>
+<td rowspan="3"><b><i>other see next form</i></b></td>
+</tr>
+<tr>
+<td> </td>
+<td> </td>
+<td><b>Recognition</b><i>[Optional]</i></td>
+<td> </td>
+<td><b>Scale</b></td>
+<td><b>Url</b></td>
+</tr>
+<tr>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><b>Label</b></td>
+<td> </td>
+</tr>
+</table>
+
+<p><br></p>
+
+<table align="left" border="1">
+<tr>
+<td rowspan="4"><b>EVENT</b></td>
+<td><b>Event</b></td>
+<td><i>subscribe</i></td>
+<td><i>unsubscribe</i></td>
+<td><i>SCAN</i></td>
+<td><i>LOCATION</i></td>
+<td><i>CLICK</i></td>
+<td><i>VIEW</i></td>
+</tr>
+<tr>
+<td rowspan="3"><b>Property</b></td>
+<td><b>EventKey</b><i>[Can be empty]</i></td>
+<td><b>EventKey</b><i>[Empty]</i></td>
+<td><b>EventKey</b></td>
+<td><b>Latitude</b></td>
+<td><b>EventKey</b></td>
+<td><b>EventKey</b></td>
+</tr>
+<tr>
+<td><b>Ticket</b><i>[Opt]</i></td>
+<td><b> </b></td>
+<td><b>Ticket</b></td>
+<td><b>Longitude</b></td>
+<td><b> </b></td>
+<td><b> </b></td>
+</tr>
+<tr>
+<td><b> </b></td>
+<td><b> </b></td>
+<td><b> </b></td>
+<td><b>Precision</b></td>
+<td><b> </b></td>
+<td><b> </b></td>
+</tr>
+</table><br>
+			<b>Located at</b> <a href="source-class-WechatMessage.html#26-253" title="Go to source code">librarie/wechatmessage.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__get" id="___get">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="source-class-WechatMessage.html#154-160" title="Go to source code">__get</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__set" id="___set">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___set">#</a>
+		<code><a href="source-class-WechatMessage.html#162-164" title="Go to source code">__set</a>( <span> <var>$name</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__isset" id="___isset">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___isset">#</a>
+		<code><a href="source-class-WechatMessage.html#166-168" title="Go to source code">__isset</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__unset" id="___unset">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___unset">#</a>
+		<code><a href="source-class-WechatMessage.html#170-174" title="Go to source code">__unset</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-WechatMessage.html#176-184" title="Go to source code">__construct</a>( <span>array <var>$dataArray</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$dataArray</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__clone" id="___clone">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___clone">#</a>
+		<code><a href="source-class-WechatMessage.html#186-190" title="Go to source code">__clone</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toXML" id="_toXML">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toXML">#</a>
+		<code><a href="source-class-WechatMessage.html#193-220" title="Go to source code">toXML</a>( <span> <var>$trimContentSize</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="trim" id="_trim">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-WechatMessage.html">WechatMessage</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_trim">#</a>
+		<code><a href="source-class-WechatMessage.html#222-235" title="Go to source code">trim</a>( )</code>
+
+		<div class="description short">
+			<p>clear CommonProperties except SpecialProperties and MsgType.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>clear CommonProperties except SpecialProperties and MsgType.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-WechatMessage.html">WechatMessage</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toString" id="_toString">
+
+		<td class="attributes"><code>
+			 public 
+
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toString">#</a>
+		<code><a href="source-class-WechatMessage.html#237-252" title="Go to source code">toString</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					string<br>a list of current properties, one per line.
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="data" id="$data">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-WechatMessage.html#131" title="Go to source code"><var>$data</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$data" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="CommonProperties" id="$CommonProperties">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-WechatMessage.html#132-138" title="Go to source code"><var>$CommonProperties</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$CommonProperties" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>(
+    <span class="php-quote">'ToUserName'</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">'FromUserName'</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">'CreateTime'</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">'MsgId'</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">'MsgType'</span> =&gt; <span class="php-quote">''</span>
+)</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="SpecialProperties" id="$SpecialProperties">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-WechatMessage.html#139-152" title="Go to source code"><var>$SpecialProperties</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$SpecialProperties" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>(
+    <span class="php-quote">&quot;Content&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;MediaId&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;PicUrl&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Format&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;ThumbMediaId&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Location_X&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Location_Y&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Scale&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Label&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Title&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Description&quot;</span> =&gt; <span class="php-quote">''</span>,
+    <span class="php-quote">&quot;Url&quot;</span> =&gt; <span class="php-quote">''</span>
+)</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		ZFrame API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

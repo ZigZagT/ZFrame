@@ -24,8 +24,8 @@ defined('_ZEXEC') or die;
  * Pac file template is set by <i>setTemplate()</i>, default is <i>librarie/pac_templates/default.js</i>.<br>
  * Each template requires a set of arguments. Arguments are passed by <i>setTemplateArguments()</i>.<br>
  * These arguments are used to replace placeholder in the template file.<br>
- * Placeholders are comment strings like <b>/*%arg<i>&lt;arg_number&gt;<i>%*&nbsp;/</b>.<br>
- * For example, the first three arguments passed into <i>setTemplateArguments()</i> will replace /*%arg0%*&nbsp;/, /*%arg1%*&nbsp;/, /*%arg2%*&nbsp;/ in order.<br>
+ * Placeholders are comment strings looks like <b>/&#42;%arg<i>&lt;arg_number&gt;</i>% description &#42;/</b>.<br>
+ * For example, the first three arguments passed into <i>setTemplateArguments()</i> will replace /&#42;%arg0%&#42;/, /&#42;%arg1%&#42;/, /&#42;%arg2%&#42;/ in order.<br>
  * You can also write descriptions in the placeholder label, jast keep the format of "%argn%" parts.
  * 
  *
