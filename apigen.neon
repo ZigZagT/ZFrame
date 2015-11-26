@@ -16,6 +16,7 @@ accessLevels:
 exclude:
     - "*/thirdparty/*"
     - "*/examples/*"
+    - "*test*"
 
 php:
 tree:
