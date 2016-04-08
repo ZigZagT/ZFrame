@@ -74,7 +74,7 @@ class Base {
      * @param Bool $resetCookie <i>[Optional]</i> This will <b>only<b> clear cookies for the request $url.
      * @return Mixed Content from remote server, or <i>FALSE</i> on error.
      */
-    public static function browser_request($url, $get, $post, $options, $resetCookie = FALSE) {
+    public static function browser_request($url, $get = NULL, $post = NULL, $options = NULL, $resetCookie = FALSE) {
         $charset = "UTF-8";
         $useURL = $url;
         $cookieURL = $url;

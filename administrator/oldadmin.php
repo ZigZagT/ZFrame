@@ -17,7 +17,7 @@
  */
 
 defined('_ZEXEC') or die;
-require_once 'base.php';
+require_once '../base.php';
 
 if ($_GET['clearaccesslog'] == 'true') // && $_POST['clearlog'] == 'true')
 {

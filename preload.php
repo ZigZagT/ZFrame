@@ -15,11 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 define("_ZEXEC", 1);
 require_once 'base.php';
 session_start();
 
+@Log::addAccessLog();
+error_reporting(0);
 $id = $_REQUEST['collegeID'];
 $course = new MadCourse();
 $data;
