@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-// Global Ajax Request Template. Need initialization before use.
-var _ajax_object_template = {
+function PHPCall() {
+    
     // '/call.php?&ajax=1' is recommended.
-    url: '/call.php',
+    this.url = '/call.php';
+    
     // data can also be an indexed array(NOT OBJECT) contains multiple function call.
-    data: {
+    this.data = {
         // Variable name of an instance of class saved in session => 1 or 'session', class name with static method => 2 or 'static'.
         // REQUIRED when class name is specified.
         class_flag: 'session',
@@ -29,49 +30,54 @@ var _ajax_object_template = {
         func: null,
         // ARRAY(may be empty) contains required function. (Some function with single argument may want an array.)
         args: []
-    }
-};
-
-// Global Ajax Request Porccessor. Use this function for Ajax communication.
-function con(ajax_object, success_callback, error_callback) {
+    };
+}
+PHPCall.prototype.Call = function(success_callback, error_callback) {
     // console.log('connect start');
     $.ajax({
         type: 'POST',
         dataType: "json",
-        url: ajax_object.url,
-        data: JSON.stringify(ajax_object.data),
+        url: this.url,
+        data: JSON.stringify(this.data),
         contentType: 'application/json; charset=utf-8',
         success: success_callback,
         error: error_callback
     });
     // console.log('Ajas Request: ' + ajax_object);
 }
-
-// Jast for quickly use. Call Server Function. The first three arguments are required.
-function exec(func_name, args, success_callback, class_name, class_flag, error_callback) {
-    // console.log('exec start');
-    // console.log(arguments);
-    var ajax_obj;
+PHPCall.prototype.Exec = function(func_name, args, class_name, class_flag, success_callback, error_callback) {
     if (func_name !== undefined && args !== undefined && success_callback !== undefined) {
-        // console.log('construct ajax_obj');
-        ajax_obj = {
-            url: _ajax_object_template.url,
-            data: {
-                func: func_name,
-                args: args
-            }
-        }
+        this.data.func = func_name;
+        this.data.args = args;
     } else {
         return false;
     }
     if (class_name) {
         if (class_flag) {
-            ajax_obj.data.class = class_name;
-            ajax_obj.data.class_flag = class_flag;
+            this.data.class = class_name;
+            this.data.class_flag = class_flag;
         } else {
             return false;
         }
     }
-    // console.log('exec near end');
-    con(ajax_obj, success_callback, error_callback);
+    this.Call(success_callback, error_callback);
+}
+
+//PHPCall.url = '/call.php';
+//PHPCall.data = {
+//    class_flag: 'session',
+//    class: null,
+//    func: null,
+//    args: []
+//};
+//PHPCall.Exec = PHPCall.prototype.Exec;
+//PHPCall.Call = PHPCall.prototype.Call;
+
+PHPCall.Call = function(success_callback, error_callback) {
+    var temp_call = new PHPCall();
+    temp_call.Call(success_callback, error_callback);
+}
+PHPCall.Exec = function(func_name, args, class_name, class_flag, success_callback, error_callback) {
+    var temp_call = new PHPCall();
+    temp_call.Exec(func_name, args, class_name, class_flag, success_callback, error_callback);
 }

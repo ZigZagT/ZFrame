@@ -199,7 +199,7 @@ class Base {
         }
         curl_setopt($ch, CURLOPT_URL, $useURL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         if (isset($post) && !empty($post)) {
             // Break IF using goto.
             if (is_array($post)) {
@@ -237,7 +237,7 @@ class Base {
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
         curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
         curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
-        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
+        curl_setopt($ch, CURLOPT_USERAGENT, "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.84 Safari/537.36");
         if (preg_match('/.*\.json$/i', $accept)) {
             $header[] = 'Accept:application/json,text/javascript,text/html,application/xhtml+xml,application/xml,image/webp,*/*; q=0.01';
         }
@@ -270,10 +270,10 @@ class Base {
      * @return mixed Returns the return value of the callback. Returns TRUE if there are multiple functions to be called. Returns FALSE on failed.
      */
     public static function call($data) {
-        if (isset($data)) {
+        if (isset($data) && !empty($data)) {
             if (!is_associative_array($data)) {         // make sure that $data is associative array.
                 return FALSE;
-            } elseif (!$data['func']) {                   // if $data['func'] is false, means everything goes well an nothing to do.
+            } elseif (!$data['func']) {                   // if the $data['func'] is invalid, means nothing to be done.
                 return TRUE;
             }
             if ($data['class']) {

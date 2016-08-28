@@ -1,7 +1,7 @@
 <?php
 
-/* 
- * Copyright 2015 master.
+/*
+ * Copyright 2016 master.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,4 @@
  * limitations under the License.
  */
 
-defined('_ZEXEC') or define("_ZEXEC", 1);
-require_once 'base.php';
-session_start();
-$return = Base::call(null);
-if (is_array($return) || is_object($return)) {
-    echo json_encode($return);
-} else {
-    echo json_encode($return);
-}
-
-//elseif (is_bool($return)) {
-//    echo json_encode(['value' => TRUE]);
-//} elseif (is_null($return)) {
-//    echo json_encode(['value' => $return]);
-//} else {
-//    echo json_encode(['data' => $return]);
-//}
+phpinfo();
