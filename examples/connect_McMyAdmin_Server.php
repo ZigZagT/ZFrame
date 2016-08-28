@@ -28,8 +28,8 @@ if (!isset($_SESSION['MC']) || isset($_REQUEST['reset'])) {
     <head>
         <meta charset="UTF-8">
         <title>Connect McMyAdmin</title>
-        <script src="../librarie/jquery.js"></script>
-        <script src="../librarie/call.js"></script>
+        <script src="../library/jquery.js"></script>
+        <script src="../library/call.js"></script>
         <script>
             // Global Log Container.
             var log = $('#log');

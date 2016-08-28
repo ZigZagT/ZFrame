@@ -24,7 +24,7 @@ session_start();
     <head>
         <meta charset="UTF-8">
         <title>test file transfer</title>
-        <script src="librarie/jquery.js"></script>
+        <script src="library/jquery.js"></script>
     </head>
     <body>
         <label>file: </label>

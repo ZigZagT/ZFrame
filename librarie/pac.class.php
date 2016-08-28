@@ -20,8 +20,8 @@ defined('_ZEXEC') or die;
 
 /**
  * Use this class to control and generate pac file.<br>
- * Pac file templates are placed under <i>librarie/pac_templates</i>.<br>
- * Pac file template is set by <i>setTemplate()</i>, default is <i>librarie/pac_templates/default.js</i>.<br>
+ * Pac file templates are placed under <i>library/pac_templates</i>.<br>
+ * Pac file template is set by <i>setTemplate()</i>, default is <i>library/pac_templates/default.js</i>.<br>
  * Each template requires a set of arguments. Arguments are passed by <i>setTemplateArguments()</i>.<br>
  * These arguments are used to replace placeholder in the template file.<br>
  * Placeholders are comment strings looks like <b>/&#42;%arg<i>&lt;arg_number&gt;</i>% description &#42;/</b>.<br>

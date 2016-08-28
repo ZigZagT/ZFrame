@@ -33,17 +33,17 @@ require_once 'base.php';
         <meta name="msapplication-TileImage" content="/mstile-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
-        <script src="/librarie/js/jquery.js"></script>
-        <script src="/librarie/js/marked.js"></script>
-        <link rel="stylesheet" href="/librarie/css/base.css">
-        <link rel="stylesheet" href="/librarie/css/blogarticle.css">
-        <script src="/librarie/js/highlight.min.js"></script>
-        <link rel="stylesheet" href="/librarie/css/highlight.min.css">
-        <script src="/librarie/js/imagesloaded.min.js"></script>
+        <script src="/library/js/jquery.js"></script>
+        <script src="/library/js/marked.js"></script>
+        <link rel="stylesheet" href="/library/css/base.css">
+        <link rel="stylesheet" href="/library/css/blogarticle.css">
+        <script src="/library/js/highlight.min.js"></script>
+        <link rel="stylesheet" href="/library/css/highlight.min.css">
+        <script src="/library/js/imagesloaded.min.js"></script>
         
-        <script src="/librarie/js/call.js"></script>
-        <script src="/librarie/js/utilities.js"></script>
-        <script src="/librarie/js/debug.js"></script>
+        <script src="/library/js/call.js"></script>
+        <script src="/library/js/utilities.js"></script>
+        <script src="/library/js/debug.js"></script>
         
         <style>
             * {
