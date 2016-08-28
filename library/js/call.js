@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
+var scripts = document.getElementsByTagName('script');
+var index = scripts.length - 1;
+var this_script = scripts[index];
+function dirname(path) {
+     return path.replace( /\/[^/]*$/, "" );
+}
+
 function PHPCall() {
     
-    // '/call.php?&ajax=1' is recommended.
-    this.url = '/call.php';
+    // '/call.php?ajax=1' is recommended.
+    this.url = dirname(this_script.src) + '/../../call.php';
     
     // data can also be an indexed array(NOT OBJECT) contains multiple function call.
     this.data = {

@@ -22,10 +22,19 @@ var curlopt = {
 }
 function curl_request(url, postData, cookie, options, success, error) {
     //var obj = new PHPCall();
+    if (typeof postData == 'string') {
+        postData = JSON.stringify(postData);
+    }
     PHPCall.Exec("curl_request", [url, postData, cookie, options], "Base", "static", success, error);
 }
 function browser_request(url, get, post, options, resetCookie, success, error) {
     //var obj = new PHPCall();
+    if (typeof post != 'string') {
+        postData = JSON.stringify(post);
+    }
+    if (typeof get != 'string') {
+        postData = JSON.stringify(get);
+    }
     var reset = resetCookie === true ? true : false;
     PHPCall.Exec("browser_request", [url, get, post, options, reset], "Base", "static", success, error);
 }
