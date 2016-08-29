@@ -22,7 +22,7 @@ var curlopt = {
 }
 function curl_request(url, postData, cookie, options, success, error) {
     //var obj = new PHPCall();
-    if (typeof postData == 'string') {
+    if (typeof postData != 'string') {
         postData = JSON.stringify(postData);
     }
     PHPCall.Exec("curl_request", [url, postData, cookie, options], "Base", "static", success, error);
