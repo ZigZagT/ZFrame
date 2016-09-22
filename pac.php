@@ -20,6 +20,7 @@ defined('_ZEXEC') or define("_ZEXEC", 1);
 require_once 'base.php';
 session_start();
 $pac = new pac();
+
 $pac->adbp_filters = [
     "||4tern.com",
     "|http:\/\/85.17.73.31\/",
@@ -5725,7 +5726,7 @@ $pac->adbp_filters = [
     "@@||zhongsou.com",
     "@@|http:\/\/ime.baidu.jp"
 ];
-$pac->proxy_host = [
+$pac->proxy_host = array_merge($pac->proxy_host, [
     "my-soft-site.top",
     "nicovideo.jp",
     "d19hkjflplfhx2.cloudfront.net",
@@ -5873,8 +5874,8 @@ $pac->proxy_host = [
     "google.com",
     "github.com",
     "amazonaws.com"
-];
-$pac->direct_host = [
+]);
+$pac->direct_host = array_merge($pac->direct_host, [
     "sinajs.cn",
     "hdslb.com",
     "csdn.net",
@@ -5885,7 +5886,7 @@ $pac->direct_host = [
     "189.cn",
     "cugbteam.org",
     "ct10010.com"
-];
+]);
 $pac->socks5_servers = ["127.0.0.1:1080"];
 $pac->socks_servers = ["127.0.0.1:1080"];
 

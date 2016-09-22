@@ -105,7 +105,7 @@ class pac {
     
     // <editor-fold defaultstate="collapsed" desc="private methods">
     private function hostname_filter($host) {
-        return preg_replace('/[^a-zA-Z0-9-]/', '', $host);
+        return preg_replace('/[^a-zA-Z0-9-\.]/', '', $host);
     }
     // </editor-fold>
     
@@ -4876,6 +4876,7 @@ class pac {
         $direct_host = "";
         $direct_ip = "";
         $adbp_filters = "";
+        $script = "";
         
         foreach ($this->socks5_servers as $server) {
             $proxy .= "SOCKS5 {$server}; ";
@@ -4904,6 +4905,8 @@ class pac {
             var direct_host = {$direct_host};
             var direct_ip = {$direct_ip};
             var adbp_filters = {$adbp_filters};
+            
+            // "direct" or "proxy".
             var default_proxy = '{$this->default_proxy}';
             
 EOF;
