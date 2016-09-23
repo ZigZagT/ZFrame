@@ -302,4 +302,4 @@ class Base {
 
 }
 
-include_once 'startup.php';
+include_once __DIR__ . DIRECTORY_SEPARATOR . 'startup.php';

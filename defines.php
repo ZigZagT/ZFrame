@@ -18,25 +18,25 @@
 
 // Ensure this file be included only once.
 if (defined('_ZDEFINE')) goto EOF;
-
 defined('_ZEXEC') or die;
+
 define('_ZDEFINE', 1);
 define('_ZPHP_VERSION', 'PHP version 5.4+ is required.');
 define('ZPATH_ROOT', __DIR__);
 define('ZPATH_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs');
-define('ZPATH_ACCESS_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'access.log');
-define('ZPATH_ERROR_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'error.log');
-define('ZPATH_RUNTIME_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'runtime.log');
+//define('ZPATH_ACCESS_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'access.log');
+//define('ZPATH_ERROR_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'error.log');
+//define('ZPATH_RUNTIME_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'runtime.log');
 define('ZPATH_CLASS_DIR', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'library');
-define('ZPATH_THIRDPARTY_CLASS_DIR', ZPATH_CLASS_DIR . DIRECTORY_SEPARATOR . 'thirdparty');
+//define('ZPATH_THIRDPARTY_CLASS_DIR', ZPATH_CLASS_DIR . DIRECTORY_SEPARATOR . 'thirdparty');
 
 
-define('ZPATH_IMAGE_FOLDER', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'image');
+//define('ZPATH_IMAGE_FOLDER', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'image');
 //define('ZPATH_IMAGE_SERVER', 'http://image.daftme.com');
-define('DB_ADDRESS', 'localhost');
-define('DB_NAME', 'name');
-define('DB_PREFIX', 'z_');
-define('DB_USERNAME', 'user');
-define('DB_PASSWORD', 'pass');
+define('ZDB_ADDRESS', 'localhost');
+define('ZDB_NAME', 'z_database');
+define('ZDB_TABLE_PREFIX', 'z_');
+define('ZDB_USERNAME', 'username');
+define('ZDB_PASSWORD', 'password');
 
 EOF:

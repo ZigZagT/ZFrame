@@ -24,16 +24,20 @@ defined('_ZEXEC') or die;
  */
 class DatabaseController {
 
-//<editor-fold desc="constructors">
+//<editor-fold desc="constructor and destructor">
     private $connection = null;
     private $prefix = "";
 
-    function __construct() {
-        $this->__constuct(DB_ADDRESS, DB_NAME, DB_USERNAME, DB_PASSWORD, DB_PREFIX);
-    }
-
-    private function __constuct($host, $dbName, $username, $password, $prefix) {
-        $this->connect($host, $dbName, $username, $password);
+    public function __constuct($host, $database_name, $username, $password, $prefix) {
+        if (func_num_args() == 0) {
+            $host = ZDB_ADDRESS;
+            $database_name = ZDB_NAME;
+            $username = ZDB_USERNAME;
+            $password = ZDB_PASSWORD;
+            $prefix = ZDB_TABLE_PREFIX;
+            
+        }
+        $this->connect($host, $database_name, $username, $password);
         $this->prefix = $prefix;
     }
 
@@ -44,13 +48,19 @@ class DatabaseController {
      * @param string $username
      * @param string $password
      */
-    private function connect($host, $dbName, $username, $password) {
+    private function connect($host, $database_name, $username, $password) {
         try {
-            $connectionString = sprintf('mysql:host=%s;dbname=%s', $host, $dbName);
+            $connectionString = sprintf('mysql:host=%s;dbname=%s', $host, $database_name);
             $this->connection = new PDO($connectionString, $username, $password);
         } catch (PDOException $pe) {
             Log::addErrorLog($pe->getMessage());
             die();
+        }
+    }
+    
+    public function __destruct() {
+        if ($this->connection->inTransaction()) {
+            $this->connection->rollBack();
         }
     }
 //</editor-fold>
@@ -83,6 +93,7 @@ class DatabaseController {
     }
 // </editor-fold>
     
+// <editor-fold desc="decrypted old methods.">
     /**
      * Prepare a PDOStatement for fetch selection.
      * 
@@ -246,7 +257,12 @@ EOSQL;
 
         return $this->exec($sql);
     }
-
+// </editor-fold>
+    
+// <editor-fold desc="transcation">
+// </editor-fold>
+    
+// <editor-fold desc="wechat">
     public function addReceivedMessage(WechatMessage $message) {
         if (!isset($message->MsgId)) {
             return;
@@ -434,5 +450,5 @@ EOSQL;
 
         return $this->update($table, $set, $where, "");
     }
-
+// </editor-fold>
 }
