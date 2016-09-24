@@ -97,12 +97,6 @@ class pac {
     public $default_proxy = "proxy"; // or "direct"
     // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="parse ADBlock plus filter">
-    public function add_adbp_filter(string $filters) {
-        
-    }
-    // </editor-fold>
-    
     // <editor-fold defaultstate="collapsed" desc="private methods">
     private function hostname_filter($host) {
         return preg_replace('/[^a-zA-Z0-9-\.]/', '', $host);
@@ -5736,6 +5730,10 @@ EOF;
             }
 EOF;
         return $script;
+        //$minify = new JSMinify($script);
+        //return $minify->minify();
+        //$minified = Base::curl_request('https://javascript-minifier.com/raw', ['input' => $script], null, [CURLOPT_TIMEOUT => 0]);
+        //return $minified;
     }
     public function output() {
         header('Content-Type: application/x-ns-proxy-autoconfig', true);

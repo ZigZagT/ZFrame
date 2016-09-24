@@ -28,10 +28,10 @@ class DatabaseController {
     private $connection = null;
     private $prefix = "";
 
-    public function __constuct($host, $database_name, $username, $password, $prefix) {
+    public function __construct($host, $database_name, $username, $password, $prefix) {
         if (func_num_args() == 0) {
-            $host = ZDB_ADDRESS;
-            $database_name = ZDB_NAME;
+            $host = ZDB_HOST;
+            $database_name = ZDB_DBNAME;
             $username = ZDB_USERNAME;
             $password = ZDB_PASSWORD;
             $prefix = ZDB_TABLE_PREFIX;
@@ -51,6 +51,7 @@ class DatabaseController {
     private function connect($host, $database_name, $username, $password) {
         try {
             $connectionString = sprintf('mysql:host=%s;dbname=%s', $host, $database_name);
+            Log::addRuntimeLog("connecting db: " . $connectionString);
             $this->connection = new PDO($connectionString, $username, $password);
         } catch (PDOException $pe) {
             Log::addErrorLog($pe->getMessage());
@@ -59,7 +60,7 @@ class DatabaseController {
     }
     
     public function __destruct() {
-        if ($this->connection->inTransaction()) {
+        if ($this->connection != null && $this->connection->inTransaction()) {
             $this->connection->rollBack();
         }
     }
@@ -68,6 +69,9 @@ class DatabaseController {
 // <editor-fold desc="Dangerous Methods.">
     public function exec($sql) {
         $result = $this->connection->exec($sql);
+        if ($result === FALSE) {
+            Log::addErrorLog("DatabaseController::exec failed: " . $sql);
+        }
         return $result;
     }
 
@@ -85,11 +89,15 @@ class DatabaseController {
             //die();
             return FALSE;
         }
-        if (func_num_args() > 1) {
+        if (func_num_args() == 1) {
             $fetchMode = PDO::FETCH_ASSOC;
         }
         $q->setFetchMode($fetchMode);
         return $q;
+    }
+    
+    public function get() {
+        return $this->connection;
     }
 // </editor-fold>
     

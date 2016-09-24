@@ -28,13 +28,13 @@ define('ZPATH_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs');
 //define('ZPATH_ERROR_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'error.log');
 //define('ZPATH_RUNTIME_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'runtime.log');
 define('ZPATH_CLASS_DIR', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'library');
-//define('ZPATH_THIRDPARTY_CLASS_DIR', ZPATH_CLASS_DIR . DIRECTORY_SEPARATOR . 'thirdparty');
+define('ZPATH_THIRDPARTY_CLASS_DIR', ZPATH_CLASS_DIR . DIRECTORY_SEPARATOR . 'thirdparty');
 
 
 //define('ZPATH_IMAGE_FOLDER', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'image');
 //define('ZPATH_IMAGE_SERVER', 'http://image.daftme.com');
-define('ZDB_ADDRESS', 'localhost');
-define('ZDB_NAME', 'z_database');
+define('ZDB_HOST', 'localhost');
+define('ZDB_DBNAME', 'z_database');
 define('ZDB_TABLE_PREFIX', 'z_');
 define('ZDB_USERNAME', 'username');
 define('ZDB_PASSWORD', 'password');

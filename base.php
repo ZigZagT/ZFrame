@@ -33,7 +33,7 @@ function is_associative_array(array $arr) {
 
 class Base {
 
-    public static function curl_request($url, $postData, $cookie, array $options = array()) {
+    public static function curl_request($url, $postData, $cookie = NULL, array $options = NULL) {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -45,7 +45,7 @@ class Base {
         if (isset($cookie) && !empty($cookie)) {
             curl_setopt($ch, CURLOPT_COOKIE, $cookie);
         }
-        if (isset($options) && !empty($options)) {
+        if (isset($options) && !empty($options) && is_array($options)) {
             curl_setopt_array($ch, $options);
         }
         $result = curl_exec($ch);
@@ -57,7 +57,7 @@ class Base {
 
         if ($result === FALSE) {
 
-            Log::addErrorLog("curl_request failed. {$error}. \$url is $url");
+            Log::addErrorLog("curl_request failed. {$error}. $url");
             return FALSE;
         }
         return $result;
@@ -244,7 +244,7 @@ class Base {
         if (!empty($header)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         }
-        if (isset($options) && !empty($options)) {
+        if (isset($options) && !empty($options) && is_array($options)) {
             curl_setopt_array($ch, $options);
         }
         $result = curl_exec($ch);
