@@ -111,8 +111,8 @@
     background-repeat: no-repeat;
 }
 .blogarticle input {
-    display: inline;
-    margin: 0;
+    display: block;
+    margin: 1em;
     padding: 0;
 }
 .blogarticle button, .blogarticle textarea {
