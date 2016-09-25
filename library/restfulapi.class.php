@@ -39,7 +39,7 @@ class RESTfulAPI {
     private $has_generate_output = false;
     
     public function __construct() {
-        $this->status = HTTPStatus::Status_Forbidden;
+        $this->status = HTTPStatus::Status_Not_Implemented;
         $this->result = NULL;
         $this->proccess_request();
     }
