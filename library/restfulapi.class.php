@@ -70,7 +70,8 @@ class RESTfulAPI {
             "result" => &$this->result
         ];
         header("Content-Type: application/json");
-        http_response_code($res["code"]);
+        // should only use with disabled error page redirect.
+        //http_response_code($res["code"]);
         echo json_encode($res);
     }
     
