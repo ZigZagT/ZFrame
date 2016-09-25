@@ -110,3 +110,16 @@
     background-size: 1em;
     background-repeat: no-repeat;
 }
+.blogarticle input {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+.blogarticle button, .blogarticle textarea {
+    display: block;
+    margin: 1em;
+}
+.blogarticle textarea{
+    width: 50%;
+    height: 24em;
+}

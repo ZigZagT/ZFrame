@@ -39,7 +39,7 @@ class RESTfulAPI {
     private $has_generate_output = false;
     
     public function __construct() {
-        $this->status = HTTPStatus::Status_Not_Implemented;
+        $this->status = HTTPStatus::Not_Implemented ;
         $this->result = NULL;
         $this->proccess_request();
     }
@@ -48,6 +48,25 @@ class RESTfulAPI {
 //        if (!$this->has_generate_output) {
 //            $this->generate_output();
 //        }
+    }
+    
+    public function describe() {
+        return [
+            'status' => $this->status,
+            'result' => $this->result,
+            'msg' => $this->msg
+        ];
+    }
+    public function assign($values) {
+        if (is_array($values)) {
+            $this->status = $values['status'];
+            $this->result = $values['result'];
+            $this->msg = $values['msg'];
+        } else if (is_object($values)) {
+            $this->status = $values->status;
+            $this->result = $values->result;
+            $this->msg = $values->msg;
+        }
     }
     
     public function reset() {
