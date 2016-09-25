@@ -972,7 +972,7 @@ EOF;
                 }
             }
 EOF;
-        $script = preg_replace('/\n[ \t]+/', '\n', $script);
+        $script = preg_replace('/\n[ \t]+/', "\n", $script);
         return trim($script);
         //$minify = new JSMinify($script);
         //return $minify->minify();
