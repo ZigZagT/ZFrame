@@ -18,5 +18,5 @@
 
 defined('_ZEXEC') or die;
 
-//echo "startup: " . __DIR__;
-// your code goes here...
+// This file sould contains user defined startup code.
+// your code just goes here...
