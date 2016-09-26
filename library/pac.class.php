@@ -146,6 +146,9 @@ class pac {
             // "direct" or "proxy".
             var default_proxy = '{$this->default_proxy}';
             
+            proxy_host.forEach((v, i, a) => {a[i] = v.toLowerCase();});
+            direct_host.forEach((v, i, a) => {a[i] = v.toLowerCase();});
+            
 EOF;
         // <editor-fold defaultstate="collapsed" desc="code from ADBlock plus and GFWList">
         $script .= <<<'EOF'
@@ -897,11 +900,11 @@ EOF;
         // </editor-fold>
         $script .= <<<'EOF'
             function is_suffix(s, suf) {
-                return s.indexOf(suf, s.length - suf.length) !== -1;
+                return s.toLowerCase().indexOf(suf, s.length - suf.length) !== -1;
             }
 
             function is_https(s) {
-                return s.indexOf('https://', 0) !== -1;
+                return s.toLowerCase().indexOf('https://', 0) !== -1;
             }
 
             function is_ipv4_address(host) {
