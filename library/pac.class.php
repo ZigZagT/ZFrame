@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 
 /**
  * Use this class to control and generate pac file.<br>

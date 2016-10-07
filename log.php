@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-define('_ZEXEC', 1);
+define('ZEXEC', 1);
 if ($_SERVER['REMOTE_ADDR'] != '219.225.40.233')
     die;
 require_once 'base.php';

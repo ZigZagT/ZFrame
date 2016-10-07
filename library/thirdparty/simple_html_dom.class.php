@@ -1,5 +1,5 @@
 <?php
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 /**
  * Website: http://sourceforge.net/projects/simplehtmldom/
  * Acknowledge: Jose Solorzano (https://sourceforge.net/projects/php-html/)

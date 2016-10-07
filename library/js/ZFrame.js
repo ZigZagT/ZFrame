@@ -1,7 +1,5 @@
-<?php
-
 /* 
- * Copyright 2015 master.
+ * Copyright 2016 master.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +14,4 @@
  * limitations under the License.
  */
 
-define("_ZEXEC", 1);
-require_once 'base.php';
 
-$login = new Login();
-$login->secret = 'abcd1234';
-$login->requirePath = 'autoreplylist.php';
-$login->requireLoginSimple();

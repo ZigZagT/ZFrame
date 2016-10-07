@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 
 /**
  * Hold and proccess the error message from the official api.

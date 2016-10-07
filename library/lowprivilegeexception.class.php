@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 class LowPrivilegeException extends Exception
 {
     function __construct($privilegeMask)

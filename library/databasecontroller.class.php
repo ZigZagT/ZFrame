@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 
 /**
  * hold and manage the database connection, 

@@ -17,10 +17,10 @@
  */
 
 // Ensure this file be included only once.
-if (defined('_ZDEFINE')) goto EOF;
-defined('_ZEXEC') or die;
+if (defined('ZDEFINE')) goto EOF;
+defined('ZEXEC') or die;
 
-define('_ZDEFINE', 1);
+define('ZDEFINE', 1);
 define('_ZPHP_VERSION', 'PHP version 5.4+ is required.');
 define('ZPATH_ROOT', __DIR__);
 define('ZPATH_LOG', ZPATH_ROOT . DIRECTORY_SEPARATOR . 'logs');

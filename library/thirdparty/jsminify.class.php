@@ -18,7 +18,7 @@
 
 // wrap to use matthiasmullie/minify
 
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 
 /**
  * @author Matthias Mullie <minify@mullie.eu>

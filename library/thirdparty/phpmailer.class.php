@@ -1,5 +1,5 @@
 <?php
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 
 /**
  * PHPMailer RFC821 SMTP email transport class.

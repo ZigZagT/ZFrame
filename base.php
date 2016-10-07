@@ -16,8 +16,8 @@
  * limitations under the License.
  */
 
-defined('_ZEXEC') or die;
-if (!defined('_ZDEFINE')) {
+defined('ZEXEC') or die;
+if (!defined('ZDEFINE')) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . 'defines.php';
 }
 if (version_compare(PHP_VERSION, '5.4', '<')) {

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-define("_ZEXEC", 1);
+define("ZEXEC", 1);
 require_once 'base.php';
 session_start();
 

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-define("_ZEXEC", 1);
+define("ZEXEC", 1);
 require_once 'base.php';
 
 $login = new Login();

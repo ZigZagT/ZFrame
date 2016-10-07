@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-defined('_ZEXEC') or die;
+defined('ZEXEC') or die;
 class HTML {
     public static function markedImg($url, $width = null, $height = null, $extra = "") {
         $html = '<img src="%s" %s %s>';

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-define("_ZEXEC", 1);
+define("ZEXEC", 1);
 
 class UIElement
 {
