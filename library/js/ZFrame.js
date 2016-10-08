@@ -86,7 +86,7 @@ let ZFrame;
             script.onload = resolve;
             script.src= path;
             head.appendChild(script);
-            block_logger.notify("script loading: " + path);
+            block_logger.debug("script loading: " + path);
         });
     };
     let test_script_exist = (path) => {
@@ -168,7 +168,7 @@ let ZFrame;
             let n = loading_stack.push(1);
             block_logger.debug(n + " module(s) are in loading");
             findScript(module_name).then(load_script).then((s)=>{
-                block_logger.debug("get script loded: ", s.target.src);
+                block_logger.notify("script loded: ", s.target.src);
                 loading_stack.pop();
                 if (loading_stack.length == 0) {
                     block_logger.debug("loading stack is clear, call onload callbacks");
