@@ -36,20 +36,16 @@
 - Add custom startup code in `startup.php`. This file would be included at the end of `base.php`.
 
 ### front-end
-- To use ZFrame, include this script:
+- To use ZFrame, include `ZFrame.js` script:
     ```html
-    <script type="module" src="library/js/ZFrame.js"></script>
-    ```
-    and then, import ZFrame into custom code:
-    ```javascript
-    import "ZFrame";
+    <script src="library/js/ZFrame.js"></script>
     ```
 
 ### Using thirdparty modules
 #### Back-end
 ZFrame use default `spl_autoload()` function to load modules. To use this, modules should be added into `library/thirdparty` with lowercase filename and end with `.class.php` extension. Every `.class.php` file should contains a php class whose class name matches the filename. Class name match is case-insensitive. And creating an instance of the class will make the whole file included via `spl_autoload()`.
 #### front-end
-Place the `.js` file into `library/js/thirdparty`, and use `ZFrame.import(filename)` to include them.
+Place the `.js` file into `library/js/thirdparty`, then use `ZFrame.using(filename)` to load them.
 
 
 =========
